@@ -1,7 +1,5 @@
-from numpy import ndarray
 import pandas as pd
 import numpy as np
-import os
 from config.config_handler import ParametersHandler
 
 

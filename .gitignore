@@ -3,8 +3,18 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Bazel
+bazel-*
+user.bazelrc
+
+# VSCode
+.vscode/
+
 # C extensions
 *.so
+
+# Vimspector
+.vimspector.json
 
 # Distribution / packaging
 .Python
