@@ -1,0 +1,15 @@
+machines:
+  amount:
+    min: 2
+    max: 5
+
+jobs:
+  amount:
+    min: 1
+    max: 5
+  release_date:
+    min: 0
+    max: 10
+  operation_processing_time:
+    min: 1
+    max: 20
