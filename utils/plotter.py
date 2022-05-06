@@ -43,7 +43,7 @@ class Plotter:
         plt.figure()
         plt.title(title)
         for machine in machines.itertuples():
-            for operation in machine.assigned_operations:
+            for operation in machine.assigned_jobs:
                 print(operation)
                 print(operation["job"])
                 print(self.colors)
