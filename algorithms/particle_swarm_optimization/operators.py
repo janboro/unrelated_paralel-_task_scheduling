@@ -1,5 +1,6 @@
 from typing import List
 from itertools import groupby
+import numpy as np
 from algorithms.shortest_release_date.shortest_release_date import ShortestReleaseDates
 
 
@@ -52,7 +53,10 @@ class Operators:
         return substraction
 
     @staticmethod
-    def get_grouped_vectorized_solution(A: List, B: List) -> List[List]:
+    def get_grouped_solution(arr):
+        return [list(group) for k, group in groupby(arr, lambda x: x == "*") if not k]
+
+    def get_multiplication_vector(self, A: List, B: List) -> List[List]:
         result = []
         for i in range(len(A)):
             if B[i] == "*":
@@ -61,11 +65,11 @@ class Operators:
                 result.append(B[i])
             else:
                 result.append(None)
-        grouped_solution = [list(group) for k, group in groupby(result, lambda x: x == "*") if not k]
-        return grouped_solution
+        return result
 
     def multiply(self, A: List, B: List, problem):
-        assigned_jobs = self.get_grouped_vectorized_solution(A=A, B=B)
+        multiplication_vector = self.get_multiplication_vector(A=A, B=B)
+        assigned_jobs = self.get_grouped_solution(multiplication_vector)
 
         SRD = ShortestReleaseDates(problem=problem)
         scheduled_jobs = SRD.initialize_solution(grouped_vectorized_solution=assigned_jobs)
@@ -73,3 +77,26 @@ class Operators:
         SRD.assign_jobs()
 
         return scheduled_jobs
+
+    def add(self, A: List, B: List):
+        grouped_solution = self.get_grouped_solution(arr=A)
+        group_to_select = np.random.randint(low=0, high=len(grouped_solution))
+
+        result = []
+        buffer = []
+        for i in range(len(grouped_solution)):
+            for job in grouped_solution[i]:
+                if i == group_to_select:
+                    result.append(job)
+                else:
+                    result.append(None)
+                    buffer.append(job)
+            result.append("*")
+        result.pop()
+
+        jobs_to_schedule = [value for value in B if value in buffer]
+
+        for i in range(len(result)):
+            if result[i] is None:
+                result[i] = jobs_to_schedule.pop(0)
+        return result

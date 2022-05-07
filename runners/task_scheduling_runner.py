@@ -11,18 +11,16 @@ def main():
     SRD = ShortestReleaseDates(problem=problem)
     SRD.assign_jobs()
 
-    print(problem.machines)
     vector_solution = operators.vectorize_solution(machines=problem.machines)
-    R = list(np.random.binomial(n=1, p=0.5, size=len(vector_solution)))
-    operators.multiply(A=R, B=vector_solution, problem=problem)
+    # R = list(np.random.binomial(n=1, p=0.5, size=len(vector_solution)))
+    # operators.multiply(A=R, B=vector_solution, problem=problem)
 
-    print(problem.machines)
+    # print(operators.vectorize_solution(machines=problem.machines))
+    # print()
 
-    print(operators.vectorize_solution(machines=problem.machines))
-    print()
-
-    # A = [3, 4, 1, 2, "*", 5, 7, 6]
-    # print(operators.multiply(A=A))
+    A = [7, 6, 1, 4, "*", 3, 2, 5]
+    B = [4, 7, 2, "*", 6, 3, 1, 5]
+    print(operators.add(A=A, B=B))
 
 
 if __name__ == "__main__":
