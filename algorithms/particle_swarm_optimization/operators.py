@@ -51,7 +51,8 @@ class Operators:
         substraction = self._fill_missing_fields(substraction, buffer)
         return substraction
 
-    def multiply(self, A, B, problem):
+    @staticmethod
+    def get_grouped_vectorized_solution(A: List, B: List) -> List[List]:
         result = []
         for i in range(len(A)):
             if B[i] == "*":
@@ -60,27 +61,15 @@ class Operators:
                 result.append(B[i])
             else:
                 result.append(None)
-        assigned_jobs = [list(group) for k, group in groupby(result, lambda x: x == "*") if not k]
+        grouped_solution = [list(group) for k, group in groupby(result, lambda x: x == "*") if not k]
+        return grouped_solution
 
-        scheduled_jobs = []
-        for machine_index, jobs in zip(problem.machines.index, assigned_jobs):
-            problem.machines.loc[machine_index, "assigned_jobs"].clear()
-            problem.machines.loc[machine_index, "processing_time"] = 0.0
-            for job in jobs:
-                if job == "*":
-                    break
-                elif job is not None:
-                    problem.machines.loc[machine_index, "assigned_jobs"].append(job)
-                    problem.machines.loc[machine_index, "processing_time"] = (
-                        max(
-                            problem.machines.loc[machine_index, "processing_time"],
-                            problem.jobs.loc[job, "release_date"],
-                        )
-                        + problem.processing_times.loc[machine_index, job]
-                    )
-                    scheduled_jobs.append(job)
+    def multiply(self, A: List, B: List, problem):
+        assigned_jobs = self.get_grouped_vectorized_solution(A=A, B=B)
 
-        shortest_relese_dates = ShortestReleaseDates(problem=problem, scheduled_jobs=scheduled_jobs)
-        shortest_relese_dates.assign_jobs()
+        SRD = ShortestReleaseDates(problem=problem)
+        scheduled_jobs = SRD.initialize_solution(grouped_vectorized_solution=assigned_jobs)
+        SRD.scheduled_jobs = scheduled_jobs
+        SRD.assign_jobs()
 
-        return result
+        return scheduled_jobs
