@@ -4,8 +4,9 @@ from task_generator.task_scheduling_generator import UnrelatedParallelMachineSch
 
 
 class ShortestReleaseDates:
-    def __init__(self, problem: UnrelatedParallelMachineSchedulingGenerator):
+    def __init__(self, problem: UnrelatedParallelMachineSchedulingGenerator, scheduled_jobs=[]):
         self.problem = problem
+        self.scheduled_jobs = scheduled_jobs
         self.unscheduled_jobs = self.problem.jobs.sort_values("release_date")
         self.machines_processing_times = np.zeros(self.problem.no_of_machines)
 
@@ -19,13 +20,14 @@ class ShortestReleaseDates:
 
     def assign_jobs(self):
         for job_index in self.unscheduled_jobs.index:
-            min_machine_index = self.get_min_machine_index(job_index=job_index)
-            self.problem.machines.loc[min_machine_index, "processing_time"] = (
-                max(
-                    self.problem.machines.loc[min_machine_index, "processing_time"],
-                    self.problem.jobs.loc[job_index, "release_date"],
+            if job_index not in self.scheduled_jobs:
+                min_machine_index = self.get_min_machine_index(job_index=job_index)
+                self.problem.machines.loc[min_machine_index, "processing_time"] = (
+                    max(
+                        self.problem.machines.loc[min_machine_index, "processing_time"],
+                        self.problem.jobs.loc[job_index, "release_date"],
+                    )
+                    + self.problem.processing_times.loc[min_machine_index, job_index]
                 )
-                + self.problem.processing_times.loc[min_machine_index, job_index]
-            )
 
-            self.problem.machines.loc[min_machine_index, "assigned_jobs"].append(job_index)
+                self.problem.machines.loc[min_machine_index, "assigned_jobs"].append(job_index)

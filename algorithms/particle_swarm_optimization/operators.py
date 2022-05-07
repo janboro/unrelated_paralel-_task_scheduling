@@ -1,5 +1,6 @@
 from typing import List
-import numpy as np
+from itertools import groupby
+from algorithms.shortest_release_date.shortest_release_date import ShortestReleaseDates
 
 
 class Operators:
@@ -7,8 +8,11 @@ class Operators:
     def vectorize_solution(machines):
         solution_vector = []
         for jobs in machines["assigned_jobs"]:
-            for job in jobs:
-                solution_vector.append(job)
+            if len(jobs) > 0:
+                for job in jobs:
+                    solution_vector.append(job)
+            else:
+                solution_vector.append(None)
             solution_vector.append("*")
         solution_vector.pop()
         return solution_vector
@@ -22,6 +26,7 @@ class Operators:
 
     @staticmethod
     def _sort_substraction(arr: List):
+        """Sorting based on a bubble sort"""
         for i in range(len(arr)):
             for j in range(len(arr) - i - 1):
                 if arr[j] is None and arr[j + 1] is not None and arr[j + 1] != "*":
@@ -46,11 +51,36 @@ class Operators:
         substraction = self._fill_missing_fields(substraction, buffer)
         return substraction
 
-    def multiply(self, A):
-        B = list(np.random.binomial(n=1, p=0.5, size=len(A)))
-        result = [a * b if type(a) == int else "*" for a, b in zip(A, B)]
-        result = list(filter(lambda x: x != 0, result))  # remove 0 from result vector
-        return result
+    def multiply(self, A, B, problem):
+        result = []
+        for i in range(len(A)):
+            if B[i] == "*":
+                result.append("*")
+            elif A[i] == 1:
+                result.append(B[i])
+            else:
+                result.append(None)
+        assigned_jobs = [list(group) for k, group in groupby(result, lambda x: x == "*") if not k]
 
-    def add(self):
-        pass
+        scheduled_jobs = []
+        for machine_index, jobs in zip(problem.machines.index, assigned_jobs):
+            problem.machines.loc[machine_index, "assigned_jobs"].clear()
+            problem.machines.loc[machine_index, "processing_time"] = 0.0
+            for job in jobs:
+                if job == "*":
+                    break
+                elif job is not None:
+                    problem.machines.loc[machine_index, "assigned_jobs"].append(job)
+                    problem.machines.loc[machine_index, "processing_time"] = (
+                        max(
+                            problem.machines.loc[machine_index, "processing_time"],
+                            problem.jobs.loc[job, "release_date"],
+                        )
+                        + problem.processing_times.loc[machine_index, job]
+                    )
+                    scheduled_jobs.append(job)
+
+        shortest_relese_dates = ShortestReleaseDates(problem=problem, scheduled_jobs=scheduled_jobs)
+        shortest_relese_dates.assign_jobs()
+
+        return result
