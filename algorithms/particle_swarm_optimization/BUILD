@@ -10,3 +10,11 @@ py_library(
         "//third_party:numpy",
     ],
 )
+
+py_library(
+    name = "operators",
+    srcs = ["operators.py"],
+    deps = [
+        "//third_party:numpy",
+    ],
+)
