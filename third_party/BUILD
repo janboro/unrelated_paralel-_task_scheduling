@@ -23,6 +23,11 @@ alias(
 )
 
 alias(
+    name = "ptvsd",
+    actual = requirement("ptvsd"),
+)
+
+alias(
     name = "pydantic",
     actual = requirement("pydantic"),
 )
