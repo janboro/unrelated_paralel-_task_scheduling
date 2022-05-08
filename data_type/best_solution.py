@@ -1,10 +1,10 @@
 import numpy as np
 from pydantic import BaseModel
-from typing import Optional
+from typing import List
 
 
 class BestSolution(BaseModel):
-    position: Optional[np.ndarray]
+    position: List
     cost: float
 
     class Config:

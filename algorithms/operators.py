@@ -74,7 +74,7 @@ class Operators:
         multiplication_vector = self._get_multiplication_vector(arr_A=arr_A, arr_B=arr_B)
         assigned_jobs = self.get_grouped_solution(multiplication_vector)
 
-        scheduled_jobs = self.SRD.initialize_solution(
+        _, scheduled_jobs = self.SRD.initialize_solution(
             scheduling_problem=scheduling_problem,
             grouped_vectorized_solution=assigned_jobs,
         )

@@ -17,7 +17,7 @@ class ShortestReleaseDates:
                         scheduling_problem=scheduling_problem, machine_index=machine_index, job_index=job_index
                     )
                     scheduled_jobs.append(job_index)
-        return scheduled_jobs
+        return scheduling_problem, scheduled_jobs
 
     def add_job_to_machine(self, scheduling_problem, machine_index, job_index):
         scheduling_problem.machines.loc[machine_index, "assigned_jobs"].append(job_index)
@@ -47,3 +47,4 @@ class ShortestReleaseDates:
                 self.add_job_to_machine(
                     scheduling_problem=scheduling_problem, machine_index=min_machine_index, job_index=job_index
                 )
+        return scheduling_problem

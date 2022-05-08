@@ -1,11 +1,11 @@
+from typing import List
 from pydantic import BaseModel
-import numpy as np
 from data_type.best_solution import BestSolution
 
 
 class Particle(BaseModel):
-    position: np.ndarray
-    velocity: np.ndarray
+    position: List
+    velocity: List
     cost: float
     personal_best: BestSolution
 

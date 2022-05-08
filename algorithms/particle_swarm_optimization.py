@@ -6,12 +6,14 @@ from data_type.problem import Problem
 from data_type.best_solution import BestSolution
 from algorithms.shortest_release_date import ShortestReleaseDates
 from algorithms.operators import Operators
+from algorithms.local_search import LocalSearch
 
 
 class PSO:
     def __init__(self, scheduling_problem, problem: Problem, pso_params: PSOParams = PSOParams()):
         self.operators = Operators()
         self.SRD = ShortestReleaseDates()
+        self.local_search = LocalSearch()
         self.scheduling_problem = scheduling_problem
         self.problem = problem
         self.pso_params = pso_params
@@ -26,10 +28,13 @@ class PSO:
         lower_bound_2 = sum(min_jobs_proscessing_times) / len(scheduling_problem.machines)
         return max(lower_bound_1, lower_bound_2)
 
+    def get_solution_cost(self, machines):
+        return max(machines.loc[:, "processing_time"])
+
     def generate_first_particle(self, scheduling_problem):
-        initial_position = ShortestReleaseDates(problem=scheduling_problem).assign_jobs()
-        position = Operators.
-        cost = sum()
+        initial_solution = self.SRD.assign_jobs(scheduling_problem=scheduling_problem)
+        initial_position = self.operators.vectorize_solution(initial_solution)
+        cost = self.get_solution_cost(machines=initial_solution.machines)
         particle = Particle(
             position=initial_position,
             velocity=initial_position,
@@ -42,22 +47,27 @@ class PSO:
 
     def initialize_swarm(self):
         swarm = []
-        for _ in range(self.pso_params.swarm_size):
-            initial_position = np.random.uniform(
-                low=self.problem.bounds.lower, high=self.problem.bounds.upper, size=self.problem.variables
-            )
-            initial_velocity = np.zeros(self.problem.variables)
-            cost = self.problem.cost_function(initial_position)
+        for i in range(self.pso_params.swarm_size):
+            if i == 1:
+                swarm.append(self.generate_first_particle(scheduling_problem=self.scheduling_problem.copy()))
+            else:
+                initial_position = self.local_search.shuffle_solution(solution=self.global_best.position)
+                grouped_vectorized_solution = self.operators.get_grouped_solution(arr=initial_position)
+                initial_solution, _ = self.SRD.initialize_solution(
+                    scheduling_problem=self.scheduling_problem.copy(),
+                    grouped_vectorized_solution=grouped_vectorized_solution,
+                )
+                cost = self.get_solution_cost(machines=initial_solution.machines)
 
-            particle = Particle(
-                position=initial_position,
-                velocity=initial_velocity,
-                cost=cost,
-                personal_best=BestSolution(position=initial_position, cost=cost),
-            )
-            swarm.append(particle)
-            if particle.personal_best.cost < self.global_best.cost:
-                self.global_best = particle.personal_best
+                particle = Particle(
+                    position=initial_position,
+                    velocity=initial_position,
+                    cost=cost,
+                    personal_best=BestSolution(position=initial_position, cost=cost),
+                )
+                swarm.append(particle)
+                if particle.personal_best.cost < self.global_best.cost:
+                    self.global_best = particle.personal_best
         return swarm
 
     def get_new_velocity(self, particle: Particle):
