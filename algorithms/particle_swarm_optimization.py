@@ -28,13 +28,18 @@ class PSO:
         lower_bound_2 = sum(min_jobs_proscessing_times) / len(scheduling_problem.machines)
         return max(lower_bound_1, lower_bound_2)
 
-    def get_solution_cost(self, machines):
-        return max(machines.loc[:, "processing_time"])
+    def get_solution_cost(self, vectorized_solution):
+        grouped_vectorized_solution = self.operators.get_grouped_solution(arr=vectorized_solution)
+        solution, _ = self.SRD.initialize_solution(
+            scheduling_problem=self.scheduling_problem.copy(),
+            grouped_vectorized_solution=grouped_vectorized_solution,
+        )
+        return max(solution.machines.loc[:, "processing_time"])
 
     def generate_first_particle(self, scheduling_problem):
         initial_solution = self.SRD.assign_jobs(scheduling_problem=scheduling_problem)
         initial_position = self.operators.vectorize_solution(initial_solution)
-        cost = self.get_solution_cost(machines=initial_solution.machines)
+        cost = self.get_solution_cost(vectorized_solution=initial_position)
         particle = Particle(
             position=initial_position,
             velocity=initial_position,
@@ -52,12 +57,7 @@ class PSO:
                 swarm.append(self.generate_first_particle(scheduling_problem=self.scheduling_problem.copy()))
             else:
                 initial_position = self.local_search.shuffle_solution(solution=self.global_best.position)
-                grouped_vectorized_solution = self.operators.get_grouped_solution(arr=initial_position)
-                initial_solution, _ = self.SRD.initialize_solution(
-                    scheduling_problem=self.scheduling_problem.copy(),
-                    grouped_vectorized_solution=grouped_vectorized_solution,
-                )
-                cost = self.get_solution_cost(machines=initial_solution.machines)
+                cost = self.get_solution_cost(vectorized_solution=initial_position)
 
                 particle = Particle(
                     position=initial_position,
@@ -71,33 +71,25 @@ class PSO:
         return swarm
 
     def get_new_velocity(self, particle: Particle):
-        inertia_term = self.pso_params.inertia * particle.velocity
-        cognitive_component = (
-            self.pso_params.cognitive_acceleration
-            * np.random.uniform(size=self.problem.variables)
-            * (particle.personal_best.position - particle.position)
-        )
-        social_component = (
-            self.pso_params.social_acceleration
-            * np.random.uniform(size=self.problem.variables)
-            * (self.global_best.position - particle.position)
+        inertia_term = particle.velocity
+        R1 = list(np.random.binomial(n=1, p=self.pso_params.R1_probability, size=len(particle.position)))
+        cognitive_component = self.operators.multiply(
+            arr_A=R1,
+            arr_B=self.operators.substract(arr_A=particle.personal_best.position, arr_B=particle.position),
+            scheduling_problem=self.scheduling_problem.copy(),
         )
 
-        velocity = inertia_term + cognitive_component + social_component
+        R2 = list(np.random.binomial(n=1, p=self.pso_params.R2_probability, size=len(particle.position)))
+        social_component = self.operators.multiply(
+            arr_A=R2,
+            arr_B=self.operators.substract(arr_A=self.global_best.position, arr_B=particle.position),
+            scheduling_problem=self.scheduling_problem.copy(),
+        )
+
+        velocity = self.operators.add(
+            arr_A=inertia_term, arr_B=self.operators.add(arr_A=cognitive_component, arr_B=social_component)
+        )
         return velocity
-
-    def apply_position_bounds(self, particle: Particle):
-        particle.position = np.maximum(particle.position, self.problem.bounds.lower)
-        particle.position = np.minimum(particle.position, self.problem.bounds.upper)
-
-    def apply_vector_bounds(self, particle: Particle):
-        particle.velocity = np.maximum(particle.velocity, self.problem.bounds.min_velocity)
-        particle.velocity = np.minimum(particle.velocity, self.problem.bounds.max_velocity)
-
-    def apply_bounds(self, particle: Particle):
-        self.apply_position_bounds(particle=particle)
-        if self.problem.bounds.constrain_velocity:
-            self.apply_vector_bounds(particle=particle)
 
     def update_global_best_solution(self, particle: Particle):
         if particle.personal_best.cost < self.global_best.cost:
@@ -116,13 +108,11 @@ class PSO:
                 velocity = self.get_new_velocity(particle=particle)
 
                 particle.velocity = velocity
-                particle.position = particle.position + particle.velocity
-                particle.cost = self.problem.cost_function(particle.position)
+                particle.position = self.operators.add(arr_A=particle.position, arr_B=particle.velocity)
+                particle.cost = self.get_solution_cost(vectorized_solution=particle.position)
 
-                self.apply_bounds(particle=particle)
                 self.update_particle_best_solution(particle=particle)
 
-            self.pso_params.inertia *= self.pso_params.inertia_dampening
             self.best_costs.append(self.global_best.cost)
 
         return self.global_best

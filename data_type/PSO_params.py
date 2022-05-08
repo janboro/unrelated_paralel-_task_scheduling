@@ -8,10 +8,8 @@ constriction_coefficients = ConstrictionCoefficients()
 class PSOParams:
     iterations: int = 100
     swarm_size: int = 50
-    inertia: float = constriction_coefficients.xi
-    cognitive_acceleration: float = constriction_coefficients.xi * constriction_coefficients.phi1
-    social_acceleration: float = constriction_coefficients.xi * constriction_coefficients.phi2
-    inertia_dampening: float = field(init=False)
+    R1_probability: float = 0.5
+    R2_probability: float = 0.5
 
     def __post_init__(self):
         self.inertia_dampening = 1 - (self.inertia / self.iterations)

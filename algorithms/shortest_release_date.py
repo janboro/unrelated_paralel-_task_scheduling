@@ -1,10 +1,9 @@
-import numpy as np
+from typing import List
 import pandas as pd
-from task_generator.task_scheduling_generator import UnrelatedParallelMachineSchedulingGenerator
 
 
 class ShortestReleaseDates:
-    def initialize_solution(self, scheduling_problem, grouped_vectorized_solution):
+    def initialize_solution(self, scheduling_problem, grouped_vectorized_solution: List):
         scheduled_jobs = []
         for machine_index, jobs in zip(scheduling_problem.machines.index, grouped_vectorized_solution):
             scheduling_problem.machines.loc[machine_index, "assigned_jobs"].clear()
