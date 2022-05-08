@@ -4,15 +4,41 @@ from data_type.problem import Problem
 from data_type.particle import Particle
 from data_type.problem import Problem
 from data_type.best_solution import BestSolution
+from algorithms.shortest_release_date import ShortestReleaseDates
+from algorithms.operators import Operators
 
 
 class PSO:
-    def __init__(self, problem: Problem, pso_params: PSOParams = PSOParams()):
+    def __init__(self, scheduling_problem, problem: Problem, pso_params: PSOParams = PSOParams()):
+        self.operators = Operators()
+        self.SRD = ShortestReleaseDates()
+        self.scheduling_problem = scheduling_problem
         self.problem = problem
         self.pso_params = pso_params
         self.global_best = BestSolution(cost=float("inf"))
         self.swarm = self.initialize_swarm()
         self.best_costs = []  # used to plot efficiency over time
+
+    def get_lower_bounds(self, scheduling_problem):
+        min_jobs_proscessing_times = scheduling_problem.processing_times.min()
+        release_dates = scheduling_problem.jobs.loc[:, "release_date"]
+        lower_bound_1 = max(min_jobs_proscessing_times + release_dates)
+        lower_bound_2 = sum(min_jobs_proscessing_times) / len(scheduling_problem.machines)
+        return max(lower_bound_1, lower_bound_2)
+
+    def generate_first_particle(self, scheduling_problem):
+        initial_position = ShortestReleaseDates(problem=scheduling_problem).assign_jobs()
+        position = Operators.
+        cost = sum()
+        particle = Particle(
+            position=initial_position,
+            velocity=initial_position,
+            cost=cost,
+            personal_best=BestSolution(position=initial_position, cost=cost),
+        )
+
+        self.global_best = particle.personal_best
+        return particle
 
     def initialize_swarm(self):
         swarm = []
