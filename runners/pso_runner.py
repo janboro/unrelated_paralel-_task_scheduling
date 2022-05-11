@@ -3,7 +3,12 @@ from task_generator.task_scheduling_generator import UnrelatedParallelMachineSch
 from algorithms.particle_swarm_optimization import PSO
 from data_type.PSO_params import PSOParams
 
+# import ptvsd
 
+
+# ptvsd.enable_attach(address=("localhost", 5678), redirect_output=True)
+# print("Attach the debugger - Run: Python: Remote Attach")
+# ptvsd.wait_for_attach()
 
 
 def main():
