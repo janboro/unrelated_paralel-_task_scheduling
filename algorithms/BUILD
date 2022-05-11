@@ -36,18 +36,30 @@ py_library(
 )
 
 py_library(
-    name = "shortest_release_date",
-    srcs = ["shortest_release_date.py"],
+    name = "random_solution",
+    srcs = ["random_solution.py"],
     deps = [
+        "//utils",
+    ],
+)
+
+py_library(
+    name = "simulated_annealing",
+    srcs = ["simulated_annealing.py"],
+    deps = [
+        ":local_search",
+        ":random_solution",
+        "//data_type:data_types",
         "//third_party:pandas",
         "//utils",
     ],
 )
 
 py_library(
-    name = "random_solution",
-    srcs = ["random_solution.py"],
+    name = "shortest_release_date",
+    srcs = ["shortest_release_date.py"],
     deps = [
+        "//third_party:pandas",
         "//utils",
     ],
 )

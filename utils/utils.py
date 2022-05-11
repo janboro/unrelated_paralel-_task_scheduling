@@ -47,3 +47,12 @@ def vectorize_solution(machines):
 
 def get_grouped_solution(arr: List):
     return [list(group) for k, group in groupby(arr, lambda x: x == "*") if not k]
+
+
+def get_solution_cost(scheduling_problem, vectorized_solution):
+    grouped_vectorized_solution = get_grouped_solution(arr=vectorized_solution)
+    solution, _ = initialize_solution(
+        scheduling_problem=scheduling_problem,
+        grouped_vectorized_solution=grouped_vectorized_solution,
+    )
+    return max(solution.machines.loc[:, "processing_time"])

@@ -6,7 +6,7 @@ from algorithms.shortest_release_date import ShortestReleaseDates
 from algorithms.random_solution import RandomSolution
 from algorithms.operators import Operators
 from algorithms.local_search import LocalSearch
-from utils.utils import clear_solution, initialize_solution, vectorize_solution, get_grouped_solution
+from utils.utils import clear_solution, vectorize_solution, get_solution_cost
 
 
 class PSO:
@@ -28,14 +28,6 @@ class PSO:
         lower_bound_2 = sum(min_jobs_proscessing_times) / len(scheduling_problem.machines)
         return max(lower_bound_1, lower_bound_2)
 
-    def get_solution_cost(self, vectorized_solution):
-        grouped_vectorized_solution = get_grouped_solution(arr=vectorized_solution)
-        solution, _ = initialize_solution(
-            scheduling_problem=self.scheduling_problem,  # removed COPY
-            grouped_vectorized_solution=grouped_vectorized_solution,
-        )
-        return max(solution.machines.loc[:, "processing_time"])
-
     def generate_first_particle(self, scheduling_problem, random=False):
         if random:
             clear_solution(scheduling_problem=scheduling_problem)
@@ -44,7 +36,7 @@ class PSO:
             clear_solution(scheduling_problem=scheduling_problem)
             initial_solution = self.SRD.assign_jobs(scheduling_problem=scheduling_problem)
         initial_position = vectorize_solution(initial_solution.machines)
-        cost = self.get_solution_cost(vectorized_solution=initial_position)
+        cost = get_solution_cost(scheduling_problem=self.scheduling_problem, vectorized_solution=initial_position)
         particle = Particle(
             position=initial_position,
             velocity=initial_position,
@@ -68,7 +60,9 @@ class PSO:
                 )
                 initial_position = vectorize_solution(initial_solution.machines)
 
-                cost = self.get_solution_cost(vectorized_solution=initial_position)
+                cost = get_solution_cost(
+                    scheduling_problem=self.scheduling_problem, vectorized_solution=initial_position
+                )
 
                 particle = Particle(
                     position=initial_position,
@@ -128,7 +122,9 @@ class PSO:
 
                 particle.velocity = velocity
                 particle.position = self.operators.add(arr_A=particle.position, arr_B=particle.velocity)
-                particle.cost = self.get_solution_cost(vectorized_solution=particle.position)
+                particle.cost = get_solution_cost(
+                    scheduling_problem=self.scheduling_problem, vectorized_solution=particle.position
+                )
 
                 self.update_particle_best_solution(particle=particle)
 
