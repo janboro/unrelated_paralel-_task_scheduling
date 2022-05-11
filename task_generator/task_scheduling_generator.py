@@ -24,7 +24,6 @@ class UnrelatedParallelMachineSchedulingGenerator:
             data=[[0.0, []] for _ in range(self.no_of_machines)],
             columns=["processing_time", "assigned_jobs"],
         )
-        machines = machines.rename(index=lambda x: f"machine_{x}")
         return machines
 
     def generate_jobs(self):
@@ -48,5 +47,4 @@ class UnrelatedParallelMachineSchedulingGenerator:
 
         processing_times = pd.DataFrame(processing_times)
         processing_times.name = "ProcessingTimes"
-        processing_times = processing_times.rename(index=lambda x: f"machine_{x}")
         return processing_times

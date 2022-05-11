@@ -1,25 +1,25 @@
 import numpy as np
 from data_type.PSO_params import PSOParams
-from data_type.problem import Problem
 from data_type.particle import Particle
-from data_type.problem import Problem
 from data_type.best_solution import BestSolution
 from algorithms.shortest_release_date import ShortestReleaseDates
+from algorithms.random_solution import RandomSolution
 from algorithms.operators import Operators
 from algorithms.local_search import LocalSearch
+from utils.utils import clear_solution, initialize_solution
 
 
 class PSO:
-    def __init__(self, scheduling_problem, problem: Problem, pso_params: PSOParams = PSOParams()):
+    def __init__(self, scheduling_problem, pso_params: PSOParams = PSOParams()):
         self.operators = Operators()
         self.SRD = ShortestReleaseDates()
+        self.random_solution = RandomSolution()
         self.local_search = LocalSearch()
         self.scheduling_problem = scheduling_problem
-        self.problem = problem
         self.pso_params = pso_params
-        self.global_best = BestSolution(cost=float("inf"))
-        self.swarm = self.initialize_swarm()
+        self.global_best = None
         self.best_costs = []  # used to plot efficiency over time
+        self.swarm = self.initialize_swarm()
 
     def get_lower_bounds(self, scheduling_problem):
         min_jobs_proscessing_times = scheduling_problem.processing_times.min()
@@ -30,15 +30,20 @@ class PSO:
 
     def get_solution_cost(self, vectorized_solution):
         grouped_vectorized_solution = self.operators.get_grouped_solution(arr=vectorized_solution)
-        solution, _ = self.SRD.initialize_solution(
-            scheduling_problem=self.scheduling_problem.copy(),
+        solution, _ = initialize_solution(
+            scheduling_problem=self.scheduling_problem,  # removed COPY
             grouped_vectorized_solution=grouped_vectorized_solution,
         )
         return max(solution.machines.loc[:, "processing_time"])
 
-    def generate_first_particle(self, scheduling_problem):
-        initial_solution = self.SRD.assign_jobs(scheduling_problem=scheduling_problem)
-        initial_position = self.operators.vectorize_solution(initial_solution)
+    def generate_first_particle(self, scheduling_problem, random=False):
+        if random:
+            clear_solution(scheduling_problem=scheduling_problem)
+            initial_solution = self.random_solution.generate_random_solution(scheduling_problem=scheduling_problem)
+        else:
+            clear_solution(scheduling_problem=scheduling_problem)
+            initial_solution = self.SRD.assign_jobs(scheduling_problem=scheduling_problem)
+        initial_position = self.operators.vectorize_solution(initial_solution.machines)
         cost = self.get_solution_cost(vectorized_solution=initial_position)
         particle = Particle(
             position=initial_position,
@@ -47,16 +52,22 @@ class PSO:
             personal_best=BestSolution(position=initial_position, cost=cost),
         )
 
-        self.global_best = particle.personal_best
+        self.global_best = particle.personal_best.copy()
+        self.best_costs.append(self.global_best.cost)
         return particle
 
     def initialize_swarm(self):
         swarm = []
         for i in range(self.pso_params.swarm_size):
-            if i == 1:
-                swarm.append(self.generate_first_particle(scheduling_problem=self.scheduling_problem.copy()))
+            if i == 0:
+                swarm.append(self.generate_first_particle(scheduling_problem=self.scheduling_problem, random=True))
             else:
-                initial_position = self.local_search.shuffle_solution(solution=self.global_best.position)
+                # initial_position = self.local_search.shuffle_solution(solution=self.global_best.position.copy())
+                initial_solution = self.random_solution.generate_random_solution(
+                    scheduling_problem=self.scheduling_problem
+                )
+                initial_position = self.operators.vectorize_solution(initial_solution.machines)
+
                 cost = self.get_solution_cost(vectorized_solution=initial_position)
 
                 particle = Particle(
@@ -66,24 +77,30 @@ class PSO:
                     personal_best=BestSolution(position=initial_position, cost=cost),
                 )
                 swarm.append(particle)
-                if particle.personal_best.cost < self.global_best.cost:
-                    self.global_best = particle.personal_best
+                self.update_global_best_solution(particle=particle)
         return swarm
 
     def get_new_velocity(self, particle: Particle):
         inertia_term = particle.velocity
-        R1 = list(np.random.binomial(n=1, p=self.pso_params.R1_probability, size=len(particle.position)))
+
+        cognitive_component_substraction = self.operators.substract(
+            arr_A=particle.personal_best.position, arr_B=particle.position, scheduling_problem=self.scheduling_problem
+        )
+        R1 = list(np.random.binomial(n=1, p=self.pso_params.R1_probability, size=len(cognitive_component_substraction)))
         cognitive_component = self.operators.multiply(
             arr_A=R1,
-            arr_B=self.operators.substract(arr_A=particle.personal_best.position, arr_B=particle.position),
-            scheduling_problem=self.scheduling_problem.copy(),
+            arr_B=cognitive_component_substraction,
+            scheduling_problem=self.scheduling_problem,
         )
 
-        R2 = list(np.random.binomial(n=1, p=self.pso_params.R2_probability, size=len(particle.position)))
+        social_component_substraction = self.operators.substract(
+            arr_A=self.global_best.position, arr_B=particle.position, scheduling_problem=self.scheduling_problem
+        )
+        R2 = list(np.random.binomial(n=1, p=self.pso_params.R2_probability, size=len(social_component_substraction)))
         social_component = self.operators.multiply(
             arr_A=R2,
-            arr_B=self.operators.substract(arr_A=self.global_best.position, arr_B=particle.position),
-            scheduling_problem=self.scheduling_problem.copy(),
+            arr_B=social_component_substraction,
+            scheduling_problem=self.scheduling_problem,
         )
 
         velocity = self.operators.add(
@@ -94,6 +111,7 @@ class PSO:
     def update_global_best_solution(self, particle: Particle):
         if particle.personal_best.cost < self.global_best.cost:
             self.global_best = particle.personal_best
+            self.best_costs.append(self.global_best.cost)
 
     def update_particle_best_solution(self, particle: Particle):
         if particle.cost < particle.personal_best.cost:
@@ -104,6 +122,7 @@ class PSO:
     def run(self):
         for i in range(self.pso_params.iterations):
             print(f"Iteration: {i}")
+            print(f"Best solution cost: {self.global_best.cost}")
             for particle in self.swarm:
                 velocity = self.get_new_velocity(particle=particle)
 
