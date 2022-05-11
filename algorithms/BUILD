@@ -14,7 +14,9 @@ py_library(
     name = "operators",
     srcs = ["operators.py"],
     deps = [
+        ":random_solution",
         "//third_party:numpy",
+        "//utils",
     ],
 )
 
@@ -24,9 +26,11 @@ py_library(
     deps = [
         ":local_search",
         ":operators",
+        ":random_solution",
         ":shortest_release_date",
         "//data_type:data_types",
         "//third_party:numpy",
+        "//utils",
     ],
 )
 
@@ -35,5 +39,14 @@ py_library(
     srcs = ["shortest_release_date.py"],
     deps = [
         "//third_party:pandas",
+        "//utils",
+    ],
+)
+
+py_library(
+    name = "random_solution",
+    srcs = ["random_solution.py"],
+    deps = [
+        "//utils",
     ],
 )
