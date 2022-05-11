@@ -15,3 +15,8 @@ py_library(
         "//third_party:numpy",
     ],
 )
+
+py_library(
+    name = "utils",
+    srcs = ["utils.py"],
+)
