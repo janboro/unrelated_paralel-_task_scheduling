@@ -1,3 +1,4 @@
+from itertools import groupby
 from typing import List
 
 
@@ -29,3 +30,20 @@ def initialize_solution(scheduling_problem, grouped_vectorized_solution: List):
                 )
                 scheduled_jobs.append(job_index)
     return scheduling_problem, scheduled_jobs
+
+
+def vectorize_solution(machines):
+    solution_vector = []
+    for jobs in machines["assigned_jobs"]:
+        if len(jobs) > 0:
+            for job in jobs:
+                solution_vector.append(job)
+        else:
+            solution_vector.append(None)
+        solution_vector.append("*")
+    solution_vector.pop()
+    return solution_vector
+
+
+def get_grouped_solution(arr: List):
+    return [list(group) for k, group in groupby(arr, lambda x: x == "*") if not k]

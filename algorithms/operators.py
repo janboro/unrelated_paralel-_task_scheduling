@@ -1,9 +1,8 @@
 from typing import List
-from itertools import groupby
 import numpy as np
 from algorithms.shortest_release_date import ShortestReleaseDates
 from algorithms.random_solution import RandomSolution
-from utils.utils import initialize_solution
+from utils.utils import initialize_solution, vectorize_solution, get_grouped_solution
 
 
 class Operators:
@@ -11,21 +10,8 @@ class Operators:
         self.SRD = ShortestReleaseDates()
         self.random_solution = RandomSolution()
 
-    @staticmethod
-    def vectorize_solution(machines):
-        solution_vector = []
-        for jobs in machines["assigned_jobs"]:
-            if len(jobs) > 0:
-                for job in jobs:
-                    solution_vector.append(job)
-            else:
-                solution_vector.append(None)
-            solution_vector.append("*")
-        solution_vector.pop()
-        return solution_vector
-
     def _fill_missing_fields(self, solution: List, scheduling_problem, assign_randomly=True):
-        grouped_solution = self.get_grouped_solution(solution)
+        grouped_solution = get_grouped_solution(solution)
         scheduling_problem, scheduled_jobs = initialize_solution(
             scheduling_problem=scheduling_problem,
             grouped_vectorized_solution=grouped_solution,
@@ -38,7 +24,7 @@ class Operators:
             scheduling_problem = self.SRD.assign_jobs(
                 scheduling_problem=scheduling_problem, scheduled_jobs=scheduled_jobs
             )
-        return self.vectorize_solution(machines=scheduling_problem.machines)
+        return vectorize_solution(machines=scheduling_problem.machines)
 
     @staticmethod
     def _sort_substraction(arr: List):
@@ -65,10 +51,6 @@ class Operators:
         substraction = self._fill_missing_fields(solution=substraction, scheduling_problem=scheduling_problem)
         return substraction
 
-    @staticmethod
-    def get_grouped_solution(arr: List):
-        return [list(group) for k, group in groupby(arr, lambda x: x == "*") if not k]
-
     def _get_multiplication_vector(self, arr_A: List, arr_B: List) -> List[List]:
         result = []
         for i in range(len(arr_A)):
@@ -85,7 +67,7 @@ class Operators:
         return self._fill_missing_fields(solution=multiplication_vector, scheduling_problem=scheduling_problem)
 
     def add(self, arr_A: List, arr_B: List):
-        grouped_solution = self.get_grouped_solution(arr=arr_A)
+        grouped_solution = get_grouped_solution(arr=arr_A)
         group_to_select = np.random.randint(low=0, high=len(grouped_solution))
 
         result = []

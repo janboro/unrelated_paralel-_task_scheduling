@@ -8,7 +8,6 @@ class ShortestReleaseDates:
             [scheduling_problem.machines["processing_time"], scheduling_problem.processing_times.loc[:, job_index]],
             axis=1,
         ).sort_values(["processing_time", job_index])
-
         return sorted_machines.iloc[0].name
 
     def assign_jobs(self, scheduling_problem, scheduled_jobs=[]):

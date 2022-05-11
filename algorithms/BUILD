@@ -7,6 +7,7 @@ py_library(
     srcs = ["local_search.py"],
     deps = [
         "//third_party:numpy",
+        "//utils",
     ],
 )
 

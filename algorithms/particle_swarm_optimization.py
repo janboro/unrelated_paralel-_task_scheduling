@@ -6,7 +6,7 @@ from algorithms.shortest_release_date import ShortestReleaseDates
 from algorithms.random_solution import RandomSolution
 from algorithms.operators import Operators
 from algorithms.local_search import LocalSearch
-from utils.utils import clear_solution, initialize_solution
+from utils.utils import clear_solution, initialize_solution, vectorize_solution, get_grouped_solution
 
 
 class PSO:
@@ -29,7 +29,7 @@ class PSO:
         return max(lower_bound_1, lower_bound_2)
 
     def get_solution_cost(self, vectorized_solution):
-        grouped_vectorized_solution = self.operators.get_grouped_solution(arr=vectorized_solution)
+        grouped_vectorized_solution = get_grouped_solution(arr=vectorized_solution)
         solution, _ = initialize_solution(
             scheduling_problem=self.scheduling_problem,  # removed COPY
             grouped_vectorized_solution=grouped_vectorized_solution,
@@ -43,7 +43,7 @@ class PSO:
         else:
             clear_solution(scheduling_problem=scheduling_problem)
             initial_solution = self.SRD.assign_jobs(scheduling_problem=scheduling_problem)
-        initial_position = self.operators.vectorize_solution(initial_solution.machines)
+        initial_position = vectorize_solution(initial_solution.machines)
         cost = self.get_solution_cost(vectorized_solution=initial_position)
         particle = Particle(
             position=initial_position,
@@ -66,7 +66,7 @@ class PSO:
                 initial_solution = self.random_solution.generate_random_solution(
                     scheduling_problem=self.scheduling_problem
                 )
-                initial_position = self.operators.vectorize_solution(initial_solution.machines)
+                initial_position = vectorize_solution(initial_solution.machines)
 
                 cost = self.get_solution_cost(vectorized_solution=initial_position)
 

@@ -19,7 +19,6 @@ class UnrelatedParallelMachineSchedulingGenerator:
         self.processing_times = self.generate_processing_times()
 
     def generate_machines(self):
-
         machines = pd.DataFrame(
             data=[[0.0, []] for _ in range(self.no_of_machines)],
             columns=["processing_time", "assigned_jobs"],
@@ -35,7 +34,6 @@ class UnrelatedParallelMachineSchedulingGenerator:
             ),
             columns=["release_date"],
         )
-
         return jobs
 
     def generate_processing_times(self):
@@ -44,7 +42,6 @@ class UnrelatedParallelMachineSchedulingGenerator:
             high=self.jobs_params["operation_processing_time"]["max"],
             size=(self.no_of_machines, self.no_of_jobs),
         )
-
         processing_times = pd.DataFrame(processing_times)
         processing_times.name = "ProcessingTimes"
         return processing_times
