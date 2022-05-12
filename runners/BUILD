@@ -21,5 +21,6 @@ py_binary(
         "//task_generator:task_scheduling_generator",
         "//third_party:matplotlib",
         "//utils",
+        "//utils:plotter",
     ],
 )
