@@ -36,3 +36,8 @@ alias(
     name = "pyyaml",
     actual = requirement("PyYAML"),
 )
+
+alias(
+    name = "seaborn",
+    actual = requirement("seaborn"),
+)

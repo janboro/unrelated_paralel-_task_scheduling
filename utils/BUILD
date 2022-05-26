@@ -13,6 +13,7 @@ py_library(
     deps = [
         "//third_party:matplotlib",
         "//third_party:numpy",
+        "//third_party:seaborn",
     ],
 )
 

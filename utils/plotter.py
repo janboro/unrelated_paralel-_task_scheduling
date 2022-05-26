@@ -1,9 +1,8 @@
 import matplotlib.pyplot as plt
-import numpy as np
+import seaborn as sns
 
-
-def generate_color():
-    return tuple(np.random.randint(256, size=3) / 256)
+plt.style.use("seaborn")
+sns.set_palette(sns.color_palette("Blues"))
 
 
 def gantt_plot(scheduling_solution, title, plot_label=True):
@@ -11,19 +10,20 @@ def gantt_plot(scheduling_solution, title, plot_label=True):
     plt.title(title)
     for machine in scheduling_solution.machines.itertuples():
         processing_time = 0
+        previous_end_time = 0
         for job in machine.assigned_jobs:
-            print(f"Machine: {machine.Index}")
-            print(f"Job: {job}")
             start_time = max(processing_time, scheduling_solution.jobs.loc[job, "release_date"])
             end_time = start_time + scheduling_solution.processing_times.loc[machine.Index, job]
+            print(f"Previous end time: {previous_end_time}")
+            print(f"Start time: {start_time}")
+            previous_end_time = end_time
             processing_time = end_time
-            color = generate_color()
 
             plt.barh(
                 y=f"M{machine.Index}",
                 left=start_time,
                 width=end_time - start_time,
-                color=color,
+                edgecolor="black",
                 label=f"J{job}",
             )
 
@@ -38,5 +38,24 @@ def gantt_plot(scheduling_solution, title, plot_label=True):
             label_list.append(label)
     if plot_label:
         plt.legend(handle_list, label_list)
+    plt.xlim(left=0)
+    plt.show()
+
+
+def plot_jobs(scheduling_solution):
+    plt.figure()
+    plt.title("Jobs release dates")
+    min_processing_time = scheduling_solution.processing_times.min()
+    sorted_jobs = scheduling_solution.jobs.sort_values(["release_date"])
+    for job in sorted_jobs.itertuples():
+        plt.barh(
+            y=f"J{job.Index}",
+            left=job.release_date,
+            width=min_processing_time.iloc[job.Index],
+            color="#006DB2",
+            edgecolor="black",
+        )
+    plt.gca().invert_yaxis()
+    plt.gca().yaxis.set_major_locator(plt.NullLocator())
     plt.xlim(left=0)
     plt.show()
