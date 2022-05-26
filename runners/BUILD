@@ -5,7 +5,7 @@ py_binary(
     srcs = ["pso_runner.py"],
     deps = [
         "//algorithms:particle_swarm_optimization",
-        "//data_types",
+        "//data_type:data_types",
         "//task_generator:task_scheduling_generator",
         "//third_party:matplotlib",
         "//third_party:ptvsd",
@@ -18,6 +18,21 @@ py_binary(
     deps = [
         "//algorithms:shortest_release_date",
         "//algorithms:simulated_annealing",
+        "//task_generator:task_scheduling_generator",
+        "//third_party:matplotlib",
+        "//utils",
+        "//utils:plotter",
+    ],
+)
+
+py_binary(
+    name = "run_all",
+    srcs = ["run_all.py"],
+    deps = [
+        "//algorithms:particle_swarm_optimization",
+        "//algorithms:shortest_release_date",
+        "//algorithms:simulated_annealing",
+        "//data_type:data_types",
         "//task_generator:task_scheduling_generator",
         "//third_party:matplotlib",
         "//utils",

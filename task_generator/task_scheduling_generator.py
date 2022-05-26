@@ -8,12 +8,8 @@ class UnrelatedParallelMachineSchedulingGenerator:
     jobs_params = ParametersHandler().handler["jobs"]
 
     def __init__(self):
-        self.no_of_machines = np.random.randint(
-            low=self.machines_params["amount"]["min"], high=self.machines_params["amount"]["max"]
-        )
-        self.no_of_jobs = np.random.randint(
-            low=self.jobs_params["amount"]["min"], high=self.jobs_params["amount"]["max"]
-        )
+        self.no_of_machines = self.machines_params["amount"]
+        self.no_of_jobs = self.jobs_params["amount"]
         self.machines = self.generate_machines()
         self.jobs = self.generate_jobs()
         self.processing_times = self.generate_processing_times()
@@ -29,7 +25,7 @@ class UnrelatedParallelMachineSchedulingGenerator:
         jobs = pd.DataFrame(
             data=np.random.randint(
                 low=self.jobs_params["release_date"]["min"],
-                high=self.jobs_params["release_date"]["max"],
+                high=self.jobs_params["release_date"]["max"] * self.no_of_jobs / 10,
                 size=self.no_of_jobs,
             ),
             columns=["release_date"],
