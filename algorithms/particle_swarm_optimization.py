@@ -28,13 +28,14 @@ class PSO:
         lower_bound_2 = sum(min_jobs_proscessing_times) / len(scheduling_problem.machines)
         return max(lower_bound_1, lower_bound_2)
 
-    def generate_first_particle(self, scheduling_problem, random=False):
-        if random:
+    def generate_first_particle(self, scheduling_problem):
+        if self.pso_params.random_first_solution:
             clear_solution(scheduling_problem=scheduling_problem)
             initial_solution = self.random_solution.generate_random_solution(scheduling_problem=scheduling_problem)
         else:
             clear_solution(scheduling_problem=scheduling_problem)
             initial_solution = self.SRD.assign_jobs(scheduling_problem=scheduling_problem)
+
         initial_position = vectorize_solution(initial_solution.machines)
         cost = get_solution_cost(scheduling_problem=self.scheduling_problem, vectorized_solution=initial_position)
         particle = Particle(
@@ -52,14 +53,23 @@ class PSO:
         swarm = []
         for i in range(self.pso_params.swarm_size):
             if i == 0:
-                swarm.append(self.generate_first_particle(scheduling_problem=self.scheduling_problem, random=True))
+                if self.literature_implementation:
+                    swarm.append(self.generate_first_particle(scheduling_problem=self.scheduling_problem, random=False))
+                else:
+                    swarm.append(
+                        self.generate_first_particle(
+                            scheduling_problem=self.scheduling_problem, random=self.random_first_solution
+                        )
+                    )
             else:
-                # initial_position = self.local_search.shuffle_solution(solution=self.global_best.position.copy())
-                initial_solution = self.random_solution.generate_random_solution(
-                    scheduling_problem=self.scheduling_problem
-                )
-                initial_position = vectorize_solution(initial_solution.machines)
+                if self.pso_params.initialize_method == "random":
+                    initial_solution = self.random_solution.generate_random_solution(
+                        scheduling_problem=self.scheduling_problem
+                    )
+                elif self.pso_params.initialize_method == "shuffle":
+                    initial_position = self.local_search.shuffle_solution(solution=self.global_best.position.copy())
 
+                initial_position = vectorize_solution(initial_solution.machines)
                 cost = get_solution_cost(
                     scheduling_problem=self.scheduling_problem, vectorized_solution=initial_position
                 )
@@ -77,28 +87,56 @@ class PSO:
     def get_new_velocity(self, particle: Particle):
         inertia_term = particle.velocity
 
-        cognitive_component_substraction = self.operators.substract(
-            arr_A=particle.personal_best.position, arr_B=particle.position, scheduling_problem=self.scheduling_problem
+        cognitive_component_subtraction = self.operators.subtract(
+            arr_A=particle.personal_best.position,
+            arr_B=particle.position,
+            scheduling_problem=self.scheduling_problem,
+            fill_randomly=self.pso_params.fill_velocity_randomly,
+            reverse=self.pso_params.reverse_subtraction,
         )
-        R1 = list(np.random.binomial(n=1, p=self.pso_params.R1_probability, size=len(cognitive_component_substraction)))
+
+        social_component_subtraction = self.operators.subtract(
+            arr_A=self.global_best.position,
+            arr_B=particle.position,
+            scheduling_problem=self.scheduling_problem,
+            fill_randomly=self.pso_params.fill_velocity_randomly,
+            reverse=self.pso_params.reverse_subtraction,
+        )
+
+        if self.pso_params.R_probability.distribution == "randint":
+            R1 = list(np.random.randint(low=0, high=2, size=len(cognitive_component_subtraction)))
+            R2 = list(np.random.randint(low=0, high=2, size=len(social_component_subtraction)))
+
+        elif self.pso_params.R_probability.distribution == "bernoulli":
+            R1 = list(
+                np.random.binomial(
+                    n=1, p=1 - self.pso_params.R_probability.R1, size=len(cognitive_component_subtraction)
+                )
+            )
+            R2 = list(
+                np.random.binomial(n=1, p=1 - self.pso_params.R_probability.R2, size=len(social_component_subtraction))
+            )
+        elif self.pso_params.R_probability.distribution == "swap":
+            # TODO implement logic for swap and insert, choose randomly. Relate it to the R param
+            pass
+
         cognitive_component = self.operators.multiply(
             arr_A=R1,
-            arr_B=cognitive_component_substraction,
+            arr_B=cognitive_component_subtraction,
             scheduling_problem=self.scheduling_problem,
         )
 
-        social_component_substraction = self.operators.substract(
-            arr_A=self.global_best.position, arr_B=particle.position, scheduling_problem=self.scheduling_problem
-        )
-        R2 = list(np.random.binomial(n=1, p=self.pso_params.R2_probability, size=len(social_component_substraction)))
         social_component = self.operators.multiply(
             arr_A=R2,
-            arr_B=social_component_substraction,
+            arr_B=social_component_subtraction,
             scheduling_problem=self.scheduling_problem,
         )
 
         velocity = self.operators.add(
-            arr_A=inertia_term, arr_B=self.operators.add(arr_A=cognitive_component, arr_B=social_component)
+            arr_A=inertia_term,
+            arr_B=self.operators.add(
+                arr_A=cognitive_component, arr_B=social_component, fill_randomly=self.pso_params.fill_velocity_randomly
+            ),
         )
         return velocity
 
@@ -128,6 +166,17 @@ class PSO:
 
                 self.update_particle_best_solution(particle=particle)
 
+                if self.pso_params.local_search.end_with_local_search:
+                    # for i in range(self.pso_params.local_search.iterations)
+                    #     pass
+                    # self.update_particle_best_solution(particle=particle)
+                    # TODO implement local search
+                    pass
+
             self.best_costs.append(self.global_best.cost)
+            if self.pso_params.R_probability.R1_dampening > 0.0:
+                self.pso_params.R_probability.R1 *= self.pso_params.R_probability.R1_dampening
+            if self.pso_params.R_probability.R2_dampening > 0.0:
+                self.pso_params.R_probability.R2 *= self.pso_params.R_probability.R2_dampening
 
         return self.global_best
