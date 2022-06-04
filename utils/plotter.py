@@ -14,8 +14,6 @@ def gantt_plot(scheduling_solution, title, plot_label=True):
         for job in machine.assigned_jobs:
             start_time = max(processing_time, scheduling_solution.jobs.loc[job, "release_date"])
             end_time = start_time + scheduling_solution.processing_times.loc[machine.Index, job]
-            print(f"Previous end time: {previous_end_time}")
-            print(f"Start time: {start_time}")
             previous_end_time = end_time
             processing_time = end_time
 

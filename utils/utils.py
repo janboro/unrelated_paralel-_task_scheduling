@@ -49,6 +49,19 @@ def get_grouped_solution(arr: List):
     return [list(group) for k, group in groupby(arr, lambda x: x == "*") if not k]
 
 
+def vectorize_grouped_solution(grouped_solution: List):
+    solution_vector = []
+    for jobs in grouped_solution:
+        if len(jobs) > 0:
+            for job in jobs:
+                solution_vector.append(job)
+        else:
+            solution_vector.append(None)
+        solution_vector.append("*")
+    solution_vector.pop()
+    return solution_vector
+
+
 def get_solution_cost(scheduling_problem, vectorized_solution):
     grouped_vectorized_solution = get_grouped_solution(arr=vectorized_solution)
     solution, _ = initialize_solution(

@@ -1,3 +1,4 @@
+import time
 import numpy as np
 from data_type.PSO_params import PSOParams
 from data_type.particle import Particle
@@ -6,11 +7,11 @@ from algorithms.shortest_release_date import ShortestReleaseDates
 from algorithms.random_solution import RandomSolution
 from algorithms.operators import Operators
 from algorithms.local_search import LocalSearch
-from utils.utils import clear_solution, vectorize_solution, get_solution_cost
+from utils.utils import clear_solution, vectorize_solution, get_solution_cost, initialize_solution, get_grouped_solution
 
 
 class PSO:
-    def __init__(self, scheduling_problem, pso_params: PSOParams = PSOParams()):
+    def __init__(self, scheduling_problem, pso_params: PSOParams, max_time=120):
         self.operators = Operators()
         self.SRD = ShortestReleaseDates()
         self.random_solution = RandomSolution()
@@ -20,6 +21,7 @@ class PSO:
         self.global_best = None
         self.best_costs = []  # used to plot efficiency over time
         self.swarm = self.initialize_swarm()
+        self.max_time = max_time
 
     def get_lower_bounds(self, scheduling_problem):
         min_jobs_proscessing_times = scheduling_problem.processing_times.min()
@@ -53,21 +55,18 @@ class PSO:
         swarm = []
         for i in range(self.pso_params.swarm_size):
             if i == 0:
-                if self.literature_implementation:
-                    swarm.append(self.generate_first_particle(scheduling_problem=self.scheduling_problem, random=False))
-                else:
-                    swarm.append(
-                        self.generate_first_particle(
-                            scheduling_problem=self.scheduling_problem, random=self.random_first_solution
-                        )
-                    )
+                swarm.append(self.generate_first_particle(scheduling_problem=self.scheduling_problem))
             else:
                 if self.pso_params.initialize_method == "random":
                     initial_solution = self.random_solution.generate_random_solution(
                         scheduling_problem=self.scheduling_problem
                     )
                 elif self.pso_params.initialize_method == "shuffle":
-                    initial_position = self.local_search.shuffle_solution(solution=self.global_best.position.copy())
+                    swapped_solution = self.local_search.swap(solution=self.global_best.position.copy())
+                    grouped_solution = get_grouped_solution(arr=swapped_solution)
+                    initial_solution, _ = initialize_solution(
+                        scheduling_problem=self.scheduling_problem, grouped_vectorized_solution=grouped_solution
+                    )
 
                 initial_position = vectorize_solution(initial_solution.machines)
                 cost = get_solution_cost(
@@ -124,12 +123,14 @@ class PSO:
             arr_A=R1,
             arr_B=cognitive_component_subtraction,
             scheduling_problem=self.scheduling_problem,
+            fill_randomly=self.pso_params.fill_velocity_randomly,
         )
 
         social_component = self.operators.multiply(
             arr_A=R2,
             arr_B=social_component_subtraction,
             scheduling_problem=self.scheduling_problem,
+            fill_randomly=self.pso_params.fill_velocity_randomly,
         )
 
         velocity = self.operators.add(
@@ -137,6 +138,7 @@ class PSO:
             arr_B=self.operators.add(
                 arr_A=cognitive_component, arr_B=social_component, fill_randomly=self.pso_params.fill_velocity_randomly
             ),
+            fill_randomly=self.pso_params.fill_velocity_randomly,
         )
         return velocity
 
@@ -152,14 +154,23 @@ class PSO:
             self.update_global_best_solution(particle=particle)
 
     def run(self):
+        start_time = time.time()
+        iterations = 0
         for i in range(self.pso_params.iterations):
+            iterations = i + 1
+            if self.max_time and time.time() - start_time > self.max_time:
+                print(f"Reached limit time in iteration {i}")
+                break
             print(f"Iteration: {i}")
-            print(f"Best solution cost: {self.global_best.cost}")
             for particle in self.swarm:
                 velocity = self.get_new_velocity(particle=particle)
 
                 particle.velocity = velocity
-                particle.position = self.operators.add(arr_A=particle.position, arr_B=particle.velocity)
+                particle.position = self.operators.add(
+                    arr_A=particle.position,
+                    arr_B=particle.velocity,
+                    fill_randomly=self.pso_params.fill_velocity_randomly,
+                )
                 particle.cost = get_solution_cost(
                     scheduling_problem=self.scheduling_problem, vectorized_solution=particle.position
                 )
@@ -167,11 +178,13 @@ class PSO:
                 self.update_particle_best_solution(particle=particle)
 
                 if self.pso_params.local_search.end_with_local_search:
-                    # for i in range(self.pso_params.local_search.iterations)
-                    #     pass
-                    # self.update_particle_best_solution(particle=particle)
-                    # TODO implement local search
-                    pass
+                    particle.position, particle.cost = self.local_search.local_search_procedure(
+                        solution=particle.position,
+                        scheduling_problem=self.scheduling_problem,
+                        local_search_iterations=self.pso_params.local_search.iterations,
+                        global_best=self.global_best,
+                    )
+                    self.update_particle_best_solution(particle=particle)
 
             self.best_costs.append(self.global_best.cost)
             if self.pso_params.R_probability.R1_dampening > 0.0:
@@ -179,4 +192,4 @@ class PSO:
             if self.pso_params.R_probability.R2_dampening > 0.0:
                 self.pso_params.R_probability.R2 *= self.pso_params.R_probability.R2_dampening
 
-        return self.global_best
+        return self.global_best, iterations

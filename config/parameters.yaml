@@ -1,11 +1,11 @@
 machines:
-  amount: 8
+  amount: 7
 
 jobs:
-  amount: 100
+  amount: 32
   release_date:
     min: 0
     max: 10
   operation_processing_time:
     min: 1
-    max: 20
+    max: 50

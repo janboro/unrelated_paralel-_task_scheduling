@@ -1,0 +1,170 @@
+SRD cost: 131.0
+Reached limit time in iteration 73
+Params: iterations=74 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.1, R2=0.1, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 111.0
+Reached limit time in iteration 54
+Params: iterations=55 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.1, R2=0.2, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 98.0
+Reached limit time in iteration 43
+Params: iterations=44 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.1, R2=0.30000000000000004, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 119.0
+Reached limit time in iteration 42
+Params: iterations=43 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.1, R2=0.4, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 115.0
+Reached limit time in iteration 37
+Params: iterations=38 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.1, R2=0.5, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 124.0
+Reached limit time in iteration 36
+Params: iterations=37 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.1, R2=0.6, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 111.0
+Reached limit time in iteration 34
+Params: iterations=35 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.1, R2=0.7000000000000001, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 118.0
+Reached limit time in iteration 32
+Params: iterations=33 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.1, R2=0.8, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 125.0
+Reached limit time in iteration 31
+Params: iterations=32 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.1, R2=0.9, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 111.0
+Reached limit time in iteration 44
+Params: iterations=45 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.2, R2=0.1, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 113.0
+Reached limit time in iteration 42
+Params: iterations=43 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.2, R2=0.2, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 103.0
+Reached limit time in iteration 42
+Params: iterations=43 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.2, R2=0.30000000000000004, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 119.0
+Reached limit time in iteration 39
+Params: iterations=40 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.2, R2=0.4, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 116.0
+Reached limit time in iteration 37
+Params: iterations=38 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.2, R2=0.5, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 114.0
+Reached limit time in iteration 33
+Params: iterations=34 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.2, R2=0.6, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 118.0
+Reached limit time in iteration 34
+Params: iterations=35 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.2, R2=0.7000000000000001, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 120.0
+Reached limit time in iteration 32
+Params: iterations=33 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.2, R2=0.8, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 121.0
+Reached limit time in iteration 30
+Params: iterations=31 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.2, R2=0.9, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 108.0
+Reached limit time in iteration 44
+Params: iterations=45 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.30000000000000004, R2=0.1, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 105.0
+Reached limit time in iteration 39
+Params: iterations=40 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.30000000000000004, R2=0.2, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 106.0
+Reached limit time in iteration 40
+Params: iterations=41 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.30000000000000004, R2=0.30000000000000004, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 111.0
+Reached limit time in iteration 37
+Params: iterations=38 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.30000000000000004, R2=0.4, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 121.0
+Reached limit time in iteration 35
+Params: iterations=36 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.30000000000000004, R2=0.5, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 116.0
+Reached limit time in iteration 35
+Params: iterations=36 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.30000000000000004, R2=0.6, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 105.0
+Reached limit time in iteration 30
+Params: iterations=31 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.30000000000000004, R2=0.7000000000000001, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 117.0
+Reached limit time in iteration 30
+Params: iterations=31 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.30000000000000004, R2=0.8, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 112.0
+Reached limit time in iteration 30
+Params: iterations=31 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.30000000000000004, R2=0.9, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 113.0
+Reached limit time in iteration 43
+Params: iterations=44 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.4, R2=0.1, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 111.0
+Reached limit time in iteration 41
+Params: iterations=42 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.4, R2=0.2, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 121.0
+Reached limit time in iteration 38
+Params: iterations=39 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.4, R2=0.30000000000000004, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 114.0
+Reached limit time in iteration 37
+Params: iterations=38 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.4, R2=0.4, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 113.0
+Reached limit time in iteration 33
+Params: iterations=34 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.4, R2=0.5, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 117.0
+Reached limit time in iteration 32
+Params: iterations=33 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.4, R2=0.6, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 116.0
+Reached limit time in iteration 25
+Params: iterations=26 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.4, R2=0.7000000000000001, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 113.0
+Reached limit time in iteration 19
+Params: iterations=20 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.4, R2=0.8, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 119.0
+Reached limit time in iteration 17
+Params: iterations=18 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.4, R2=0.9, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 120.0
+Reached limit time in iteration 37
+Params: iterations=38 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.5, R2=0.1, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 118.0
+Reached limit time in iteration 38
+Params: iterations=39 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.5, R2=0.2, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 107.0
+Reached limit time in iteration 37
+Params: iterations=38 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.5, R2=0.30000000000000004, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 116.0
+Reached limit time in iteration 35
+Params: iterations=36 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.5, R2=0.4, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 118.0
+Reached limit time in iteration 31
+Params: iterations=32 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.5, R2=0.5, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 118.0
+Reached limit time in iteration 31
+Params: iterations=32 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.5, R2=0.6, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 115.0
+Reached limit time in iteration 30
+Params: iterations=31 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.5, R2=0.7000000000000001, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 120.0
+Reached limit time in iteration 29
+Params: iterations=30 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.5, R2=0.8, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 114.0
+Reached limit time in iteration 28
+Params: iterations=29 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.5, R2=0.9, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 105.0
+Reached limit time in iteration 40
+Params: iterations=41 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.6, R2=0.1, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 110.0
+Reached limit time in iteration 38
+Params: iterations=39 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.6, R2=0.2, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 109.0
+Reached limit time in iteration 36
+Params: iterations=37 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.6, R2=0.30000000000000004, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 120.0
+Reached limit time in iteration 33
+Params: iterations=34 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.6, R2=0.4, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 112.0
+Reached limit time in iteration 35
+Params: iterations=36 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.6, R2=0.5, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 102.0
+Reached limit time in iteration 41
+Params: iterations=42 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.6, R2=0.6, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 113.0
+Reached limit time in iteration 41
+Params: iterations=42 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.6, R2=0.7000000000000001, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 114.0
+Reached limit time in iteration 39
+Params: iterations=40 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.6, R2=0.8, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 118.0
+Reached limit time in iteration 37
+Params: iterations=38 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.6, R2=0.9, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 107.0
+Reached limit time in iteration 50
+Params: iterations=51 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.7000000000000001, R2=0.1, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 110.0
+Reached limit time in iteration 48
+Params: iterations=49 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.7000000000000001, R2=0.2, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 102.0
+Reached limit time in iteration 46
+Params: iterations=47 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.7000000000000001, R2=0.30000000000000004, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 109.0
+Reached limit time in iteration 45
+Params: iterations=46 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.7000000000000001, R2=0.4, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 116.0
+Reached limit time in iteration 43
+Params: iterations=44 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.7000000000000001, R2=0.5, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 122.0
+Reached limit time in iteration 41
+Params: iterations=42 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.7000000000000001, R2=0.6, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 112.0
+Reached limit time in iteration 39
+Params: iterations=40 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.7000000000000001, R2=0.7000000000000001, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 121.0
+Reached limit time in iteration 37
+Params: iterations=38 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.7000000000000001, R2=0.8, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 104.0
+Reached limit time in iteration 36
+Params: iterations=37 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.7000000000000001, R2=0.9, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 116.0
+Reached limit time in iteration 47
+Params: iterations=48 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.8, R2=0.1, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 106.0
+Reached limit time in iteration 46
+Params: iterations=47 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.8, R2=0.2, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 112.0
+Reached limit time in iteration 43
+Params: iterations=44 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.8, R2=0.30000000000000004, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 106.0
+Reached limit time in iteration 43
+Params: iterations=44 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.8, R2=0.4, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 109.0
+Reached limit time in iteration 41
+Params: iterations=42 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.8, R2=0.5, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 101.0
+Reached limit time in iteration 41
+Params: iterations=42 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.8, R2=0.6, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 117.0
+Reached limit time in iteration 38
+Params: iterations=39 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.8, R2=0.7000000000000001, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 93.0
+Reached limit time in iteration 37
+Params: iterations=38 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.8, R2=0.8, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 116.0
+Reached limit time in iteration 35
+Params: iterations=36 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.8, R2=0.9, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 117.0
+Reached limit time in iteration 46
+Params: iterations=47 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.9, R2=0.1, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 94.0
+Reached limit time in iteration 44
+Params: iterations=45 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.9, R2=0.2, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 113.0
+Reached limit time in iteration 42
+Params: iterations=43 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.9, R2=0.30000000000000004, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 109.0
+Reached limit time in iteration 41
+Params: iterations=42 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.9, R2=0.4, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 112.0
+Reached limit time in iteration 39
+Params: iterations=40 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.9, R2=0.5, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 104.0
+Reached limit time in iteration 38
+Params: iterations=39 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.9, R2=0.6, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 119.0
+Reached limit time in iteration 37
+Params: iterations=38 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.9, R2=0.7000000000000001, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 114.0
+Reached limit time in iteration 35
+Params: iterations=36 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.9, R2=0.8, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 112.0
+Reached limit time in iteration 31
+Params: iterations=32 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.9, R2=0.9, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0), cost: 109.0
+
+SRD cost: 131.0
+BEST PSO PARAMS ==================================================================================
+iterations=39 swarm_size=25 random_first_solution=False initialize_method='shuffle' reverse_subtraction=False multiplication_operator='regular' fill_velocity_randomly=False R_probability=Probability(distribution='bernoulli', R1=0.8, R2=0.7000000000000001, R1_dampening=0.0, R2_dampening=0.0) local_search=LocalSearch(end_with_local_search=False, iterations=0)
+BEST PSO SOLUTION ==================================================================================
+position=[14, 12, 10, 20, '*', 21, 7, 3, 28, 16, '*', 13, 17, 2, 27, 26, '*', 23, 29, 24, 19, 25, 30, '*', 15, 22, 0, 1, '*', 5, 11, 6, 31, 9, '*', 18, 4, 8] cost=93.0
+=================================================================================================

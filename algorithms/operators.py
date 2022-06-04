@@ -57,9 +57,9 @@ class Operators:
 
     def subtract(self, arr_A: List, arr_B: List, scheduling_problem, fill_randomly: bool, reverse: bool):
         if reverse:
-            result = self._reversed_subtractor(arr_A=arr_A, arr_B=arr_B)
+            subtraction = self._reversed_subtractor(arr_A=arr_A, arr_B=arr_B)
         else:
-            result = self._subtractor(arr_A=arr_A, arr_B=arr_B)
+            subtraction = self._subtractor(arr_A=arr_A, arr_B=arr_B)
         subtraction = self._sort_subtraction(subtraction)
         subtraction = self._fill_missing_fields(
             solution=subtraction, scheduling_problem=scheduling_problem, fill_randomly=fill_randomly
@@ -79,38 +79,43 @@ class Operators:
 
     def multiply(self, arr_A: List, arr_B: List, scheduling_problem, fill_randomly: bool):
         multiplication_vector = self._get_multiplication_vector(arr_A=arr_A, arr_B=arr_B)
-        if fill_randomly:
-            # TODO implement logic
-            pass
-        else:
-            solution = self._fill_missing_fields(solution=multiplication_vector, scheduling_problem=scheduling_problem)
+        solution = self._fill_missing_fields(
+            solution=multiplication_vector, scheduling_problem=scheduling_problem, fill_randomly=fill_randomly
+        )
         return solution
 
     def add(self, arr_A: List, arr_B: List, fill_randomly: bool):
         grouped_solution = get_grouped_solution(arr=arr_A)
         group_to_select = np.random.randint(low=0, high=len(grouped_solution))
 
-        if fill_randomly:
-            # TODO implement logic
-            pass
-        else:
-            result = []
-            buffer = []
-            for i in range(len(grouped_solution)):
-                for job in grouped_solution[i]:
-                    if i == group_to_select:
-                        result.append(job)
-                    elif job is not None:
-                        result.append(-1)
-                        buffer.append(job)
-                    else:
-                        result.append(None)
-                result.append("*")
-            result.pop()
+        # if fill_randomly:
+        #     result = []
+        #     buffer = []
+        #     for i in grouped_solution:
+        #         if i == group_to_select:
+        #             result.append(grouped_solution[i])
+        #         else:
+        #             result.append([])
+        #     self._fill_missing_fields()
+        # else:
+        result = []
+        buffer = []
+        for i in range(len(grouped_solution)):
+            for job in grouped_solution[i]:
+                if i == group_to_select:
+                    result.append(job)
+                elif job is not None:
+                    result.append(-1)
+                    buffer.append(job)
+                else:
+                    result.append(None)
+            result.append("*")
+        result.pop()
 
-            jobs_to_schedule = [value for value in arr_B if value in buffer]
+        jobs_to_schedule = [value for value in arr_B if value in buffer]
 
-            for i in range(len(result)):
-                if result[i] == -1:
-                    result[i] = jobs_to_schedule.pop(0)
+        for i in range(len(result)):
+            if result[i] == -1:
+                result[i] = jobs_to_schedule.pop(0)
+
         return result

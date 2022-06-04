@@ -4,12 +4,10 @@ from pydantic import BaseModel
 
 class Probability(BaseModel):
     distribution: str  # bernoulli or randint
-    R1: Optional[float]
-    final_R1: Optional[float]
-    R2: Optional[float]
-    final_R2: Optional[float]
-    R1_dampening: Optional[float]
-    R2_dampening: Optional[float]
+    R1: float
+    R2: float
+    R1_dampening: float
+    R2_dampening: float
 
 
 class LocalSearch(BaseModel):
