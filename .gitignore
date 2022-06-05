@@ -9,6 +9,7 @@ user.bazelrc
 
 # VSCode
 .vscode/
+.vscode
 
 # C extensions
 *.so
