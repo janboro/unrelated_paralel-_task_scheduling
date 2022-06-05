@@ -3,6 +3,7 @@ machines:
 
 jobs:
   amount: 32
+  # In case of generating random problem
   release_date:
     min: 0
     max: 10

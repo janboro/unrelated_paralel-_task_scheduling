@@ -1,23 +1,34 @@
 load("@rules_python//python:defs.bzl", "py_binary")
 
 py_binary(
-    name = "pso_runner",
-    srcs = ["pso_runner.py"],
+    name = "run_srd",
+    srcs = ["run_srd.py"],
     deps = [
-        "//algorithms:particle_swarm_optimization",
-        "//data_type:data_types",
+        "//algorithms:shortest_release_date",
         "//task_generator:task_scheduling_generator",
-        "//third_party:matplotlib",
-        "//third_party:ptvsd",
+        "//utils",
+        "//utils:plotter",
     ],
 )
 
 py_binary(
-    name = "simulated_annealing_runner",
-    srcs = ["simulated_annealing_runner.py"],
+    name = "run_sa",
+    srcs = ["run_sa.py"],
     deps = [
-        "//algorithms:shortest_release_date",
         "//algorithms:simulated_annealing",
+        "//task_generator:task_scheduling_generator",
+        "//third_party:matplotlib",
+        "//utils",
+        "//utils:plotter",
+    ],
+)
+
+py_binary(
+    name = "run_pso",
+    srcs = ["run_pso.py"],
+    deps = [
+        "//algorithms:particle_swarm_optimization",
+        "//data_type:data_types",
         "//task_generator:task_scheduling_generator",
         "//third_party:matplotlib",
         "//utils",

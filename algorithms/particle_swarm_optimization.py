@@ -115,9 +115,6 @@ class PSO:
             R2 = list(
                 np.random.binomial(n=1, p=1 - self.pso_params.R_probability.R2, size=len(social_component_subtraction))
             )
-        elif self.pso_params.R_probability.distribution == "swap":
-            # TODO implement logic for swap and insert, choose randomly. Relate it to the R param
-            pass
 
         cognitive_component = self.operators.multiply(
             arr_A=R1,

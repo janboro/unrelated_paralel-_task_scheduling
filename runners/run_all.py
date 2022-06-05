@@ -64,9 +64,9 @@ def main():
     # print(f"SA cost: {simulated_annealing_solution.cost}")
     # gantt_plot(scheduling_solution=SA_solution, title="SA", plot_label=False)
 
-    # plt.plot(simulated_annealing.bets_cost_history)
+    # plt.plot(simulated_annealing.best_cost_history)
     # plt.show()
-    # plt.semilogy(simulated_annealing.bets_cost_history)
+    # plt.semilogy(simulated_annealing.best_cost_history)
     # plt.show()
 
     # PSO -----------------------------

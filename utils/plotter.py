@@ -10,11 +10,9 @@ def gantt_plot(scheduling_solution, title, plot_label=True):
     plt.title(title)
     for machine in scheduling_solution.machines.itertuples():
         processing_time = 0
-        previous_end_time = 0
         for job in machine.assigned_jobs:
             start_time = max(processing_time, scheduling_solution.jobs.loc[job, "release_date"])
             end_time = start_time + scheduling_solution.processing_times.loc[machine.Index, job]
-            previous_end_time = end_time
             processing_time = end_time
 
             plt.barh(

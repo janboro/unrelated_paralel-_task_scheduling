@@ -21,7 +21,6 @@ class PSOParams(BaseModel):
     random_first_solution: bool
     initialize_method: str  # random or shuffle
     reverse_subtraction: bool  # regular or reversed
-    multiplication_operator: str  # regular or local_search
     fill_velocity_randomly: bool
     R_probability: Probability
     local_search: LocalSearch

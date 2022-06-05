@@ -22,7 +22,7 @@ class SimulatedAnnealing:
         self.cooling_rate = cooling_rate
         self.max_iterations = max_iterations
         self.best_solution = None
-        self.bets_cost_history = []
+        self.best_cost_history = []
         self.display_iteration = display_iteration
         self.max_time = max_time
         self.min_temperature = min_temperature
@@ -45,7 +45,7 @@ class SimulatedAnnealing:
         A = self.get_initial_solution(scheduling_problem=scheduling_problem)
 
         self.best_solution = A
-        self.bets_cost_history.append(A.cost)
+        self.best_cost_history.append(A.cost)
         iterations = 0
         for i in range(self.max_iterations):
             iterations = i + 1
@@ -62,12 +62,12 @@ class SimulatedAnnealing:
             if delta < 0:
                 A = neighbour
                 self.best_solution = A
-                self.bets_cost_history.append(A.cost)
+                self.best_cost_history.append(A.cost)
             else:
                 p = np.random.rand()
                 if p < np.exp(-delta / self.temperature):
                     A = neighbour
-                    self.bets_cost_history.append(A.cost)
+                    self.best_cost_history.append(A.cost)
             self.temperature *= self.cooling_rate
 
         return self.best_solution, iterations
