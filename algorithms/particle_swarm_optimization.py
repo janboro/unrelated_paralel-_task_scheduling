@@ -11,7 +11,7 @@ from utils.utils import clear_solution, vectorize_solution, get_solution_cost, i
 
 
 class PSO:
-    def __init__(self, scheduling_problem, pso_params: PSOParams, max_time=120):
+    def __init__(self, scheduling_problem, pso_params: PSOParams, display_iteration=False, max_time=180):
         self.operators = Operators()
         self.SRD = ShortestReleaseDates()
         self.random_solution = RandomSolution()
@@ -22,6 +22,7 @@ class PSO:
         self.best_costs = []  # used to plot efficiency over time
         self.swarm = self.initialize_swarm()
         self.max_time = max_time
+        self.display_iteration = display_iteration
 
     def get_lower_bounds(self, scheduling_problem):
         min_jobs_proscessing_times = scheduling_problem.processing_times.min()
@@ -158,7 +159,8 @@ class PSO:
             if self.max_time and time.time() - start_time > self.max_time:
                 print(f"Reached limit time in iteration {i}")
                 break
-            print(f"Iteration: {i}")
+            if self.display_iteration:
+                print(f"Iteration: {i}")
             for particle in self.swarm:
                 velocity = self.get_new_velocity(particle=particle)
 

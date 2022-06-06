@@ -7,9 +7,9 @@ class UnrelatedParallelMachineSchedulingGenerator:
     machines_params = ParametersHandler().handler["machines"]
     jobs_params = ParametersHandler().handler["jobs"]
 
-    def __init__(self):
-        self.no_of_machines = self.machines_params["amount"]
-        self.no_of_jobs = self.jobs_params["amount"]
+    def __init__(self, no_of_machines=machines_params["amount"], no_of_jobs=jobs_params["amount"]):
+        self.no_of_machines = no_of_machines
+        self.no_of_jobs = no_of_jobs
         self.machines = self.generate_machines()
         self.jobs = self.generate_release_dates()
         self.processing_times = self.generate_processing_times()
@@ -23,6 +23,7 @@ class UnrelatedParallelMachineSchedulingGenerator:
 
     def generate_release_dates(self):
         release_dates = []
+        # release_dates = [2, 5, 12, 5, 10, 6, 12, 8, 6, 2]
 
         if not release_dates:
             # Generating random release dates
@@ -37,6 +38,13 @@ class UnrelatedParallelMachineSchedulingGenerator:
 
     def generate_processing_times(self):
         processing_times = []
+        # processing_times = [
+        #     [31, 21, 28, 15, 19, 1, 3, 33, 13, 13],
+        #     [32, 32, 17, 43, 40, 26, 2, 19, 26, 36],
+        #     [31, 2, 41, 30, 48, 24, 10, 12, 14, 19],
+        #     [8, 1, 13, 3, 24, 13, 24, 7, 48, 30],
+        #     [47, 12, 3, 9, 30, 4, 45, 11, 38, 40],
+        # ]
 
         if not processing_times:
             # Generating random processing times

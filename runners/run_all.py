@@ -26,32 +26,17 @@ def main():
 
     # SA -------------------------------------
     # best_sa_params = None
-    # for temperature in np.arange(start=0.5, stop=2.1, step=0.1):
-    #     for cooling_rate in np.arange(start=0.49, stop=0.999, step=0.1):
-    #         for iterations in np.arange(100, 5001, 100):
-    #             start_time = time.time()
-    #             simulated_annealing = SimulatedAnnealing(
-    #                 temperature=temperature,
-    #                 cooling_rate=cooling_rate,
-    #                 max_iterations=iterations,
-    #                 display_iteration=False,
-    #             )
-    #             sa_solution, sa_iterations = simulated_annealing.run(scheduling_problem=scheduling_problem)
-    #             end_time = time.time()
-    #             sa_params = SAParams(
-    #                 processing_time=end_time - start_time,
-    #                 temperature=temperature,
-    #                 cooling_rate=cooling_rate,
-    #                 best_solution=BestSolution(position=sa_solution.position, cost=sa_solution.cost),
-    #                 iterations=sa_iterations,
-    #             )
-    #             if best_sa_params is None:
-    #                 best_sa_params = sa_params
-    #             if sa_params.best_solution.cost < best_sa_params.best_solution.cost:
-    #                 best_sa_params = sa_params
-    #             print(sa_params)
-    #             if sa_iterations < iterations:
-    #                 break
+    # for i in range(10):
+    #     start_time = time.time()
+    #     simulated_annealing = SimulatedAnnealing(
+    #         temperature=1.0,
+    #         cooling_rate=cooling_rate,
+    #         max_iterations=iterations,
+    #         display_iteration=False,
+    #     )
+    #     sa_solution, sa_iterations = simulated_annealing.run(scheduling_problem=scheduling_problem)
+    #     end_time = time.time()
+    #     sa_solution.cost
     # print()
     # print("BEST SA PARAMS ==================================================================================")
     # print(best_sa_params)
@@ -69,43 +54,47 @@ def main():
     # plt.semilogy(simulated_annealing.best_cost_history)
     # plt.show()
 
-    # PSO -----------------------------
+    # PSO 1 -----------------------------
     max_time = 90
     PSO_best_solution = None
     PSO_best_params = None
-    for ls_iterations in range(0, 11):
-        pso_probability = Probability(
-            distribution="bernoulli",  # bernoulli or randint
-            R1=0.9,
-            R2=0.1,
-            R1_dampening=0.0,
-            R2_dampening=0.0,
-        )
-        pso_local_search = LocalSearch(
-            end_with_local_search=True,
-            iterations=ls_iterations,
-        )
-        pso_params = PSOParams(
-            iterations=200,
-            swarm_size=30,
-            random_first_solution=False,
-            initialize_method="shuffle",
-            reverse_subtraction=False,
-            multiplication_operator="regular",
-            fill_velocity_randomly=False,
-            R_probability=pso_probability,
-            local_search=pso_local_search,
-        )
+    for R1_dampening in np.arange(0.0, 1.0, 0.1):
+        for R2_dampening in np.arange(0.0, 1.0, 0.1):
+            pso_probability = Probability(
+                distribution="bernoulli",  # bernoulli or randint
+                R1=0.7,
+                R2=0.8,
+                R1_dampening=R1_dampening,
+                R2_dampening=R2_dampening,
+            )
+            pso_local_search = LocalSearch(
+                end_with_local_search=False,
+                iterations=0,
+            )
+            pso_params = PSOParams(
+                iterations=300,
+                swarm_size=30,
+                random_first_solution=True,
+                initialize_method="random",
+                reverse_subtraction=True,
+                fill_velocity_randomly=True,
+                R_probability=pso_probability,
+                local_search=pso_local_search,
+            )
 
-        pso = PSO(scheduling_problem=scheduling_problem, pso_params=pso_params)
-        pso_solutions, pso_iterations = pso.run()
-        if PSO_best_solution is None:
-            PSO_best_solution = pso_solutions
-        elif pso_solutions.cost < PSO_best_solution.cost:
-            PSO_best_solution = pso_solutions
-            PSO_best_params = pso_params
-        pso_params.iterations = pso_iterations
-        print(f"Params: {pso_params}, cost: {pso_solutions.cost}")
+            pso = PSO(
+                scheduling_problem=scheduling_problem, pso_params=pso_params, max_time=60, display_iteration=False
+            )
+            pso_solutions, pso_iterations = pso.run()
+            pso_params.R_probability.R1_dampening = R1_dampening
+            pso_params.R_probability.R2_dampening = R2_dampening
+            if PSO_best_solution is None:
+                PSO_best_solution = pso_solutions
+            elif pso_solutions.cost < PSO_best_solution.cost:
+                PSO_best_solution = pso_solutions
+                PSO_best_params = pso_params
+            pso_params.iterations = pso_iterations
+            print(f"Params: {pso_params}, cost: {pso_solutions.cost}")
     print()
     print(f"SRD cost: {srd_cost}")
     print("BEST PSO PARAMS ==================================================================================")

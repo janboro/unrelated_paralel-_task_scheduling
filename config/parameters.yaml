@@ -3,10 +3,11 @@ machines:
 
 jobs:
   amount: 32
-  # In case of generating random problem
   release_date:
     min: 0
     max: 10
   operation_processing_time:
     min: 1
     max: 50
+
+

@@ -12,7 +12,7 @@ def main():
     simulated_annealing = SimulatedAnnealing(
         temperature=1,
         cooling_rate=0.99,
-        max_iterations=500,
+        max_iterations=5000,
         display_iteration=False,
     )
     sa_solution, _ = simulated_annealing.run(scheduling_problem=scheduling_problem)
@@ -22,6 +22,7 @@ def main():
         grouped_vectorized_solution=get_grouped_solution(sa_solution.position),
     )
     print(f"SA cost: {sa_solution.cost}")
+    print(f"SA solution: {sa_solution.position}")
     gantt_plot(scheduling_solution=SA_solution, title="SA", plot_label=False)
 
     plt.plot(simulated_annealing.best_cost_history, color="tab:blue")

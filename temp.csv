@@ -1,0 +1,57 @@
+"Machines: 3, Jobs: 15 ======================="
+Time: 0.07268404960632324,Cost: 171.0
+SA --------------------------
+Time: 15.986284971237183,Iterations: 5000,Cost: 109.0
+Time: 14.14999508857727,Iterations: 5000,Cost: 106.0
+Time: 14.898895740509033,Iterations: 5000,Cost: 96.0
+Time: 14.629115343093872,Iterations: 5000,Cost: 104.0
+Time: 14.24705171585083,Iterations: 5000,Cost: 96.0
+Lit PSO --------------------------
+Time: 180.5208020210266,Iterations: 121,Cost: 101.0
+Time: 181.07395434379578,Iterations: 123,Cost: 104.0
+Time: 181.73336458206177,Iterations: 122,Cost: 106.0
+Time: 181.60826587677002,Iterations: 118,Cost: 104.0
+Time: 181.55567240715027,Iterations: 99,Cost: 112.0
+Lit PSO + LS --------------------------
+Time: 182.8324625492096,Iterations: 41,Cost: 104.0
+Time: 181.10617113113403,Iterations: 42,Cost: 106.0
+Time: 180.80603742599487,Iterations: 38,Cost: 104.0
+Time: 180.5032114982605,Iterations: 44,Cost: 104.0
+Time: 182.58665871620178,Iterations: 63,Cost: 96.0
+Aut PSO (Randint) --------------------------
+Time: 86.42636275291443,Iterations: 300,Cost: 117.0
+Time: 86.68688988685608,Iterations: 300,Cost: 110.0
+Time: 85.45472574234009,Iterations: 300,Cost: 109.0
+Time: 85.54176640510559,Iterations: 300,Cost: 122.0
+Time: 86.11138415336609,Iterations: 300,Cost: 109.0
+Aut PSO (bernouilli) random first --------------------------
+Time: 85.30763959884644,Iterations: 300,Cost: 115.0
+Time: 85.52125763893127,Iterations: 300,Cost: 118.0
+Time: 85.07763266563416,Iterations: 300,Cost: 111.0
+Time: 85.72865581512451,Iterations: 300,Cost: 109.0
+Time: 85.25556182861328,Iterations: 300,Cost: 117.0
+Aut PSO (bernouilli) shuffle first --------------------------
+Time: 84.78895878791809,Iterations: 300,Cost: 106.0
+Time: 84.93995761871338,Iterations: 300,Cost: 108.0
+Time: 84.51077151298523,Iterations: 300,Cost: 103.0
+Time: 84.58878254890442,Iterations: 300,Cost: 106.0
+Time: 84.49342942237854,Iterations: 300,Cost: 102.0
+Aut PSO (bernouilli) shuffle first + LS --------------------------
+Time: 180.59718823432922,Iterations: 115,Cost: 104.0
+Time: 180.80997943878174,Iterations: 115,Cost: 104.0
+Time: 180.55683779716492,Iterations: 114,Cost: 101.0
+Time: 181.38455891609192,Iterations: 115,Cost: 109.0
+Time: 181.66948556900024,Iterations: 115,Cost: 100.0
+"Machines: 7, Jobs: 50 ======================="
+Time: 0.08197212219238281,Cost: 178.0
+SA --------------------------
+Time: 26.862637281417847,Iterations: 5000,Cost: 100.0
+Time: 26.884685039520264,Iterations: 5000,Cost: 101.0
+Time: 26.828354120254517,Iterations: 5000,Cost: 100.0
+Time: 26.751441478729248,Iterations: 5000,Cost: 140.0
+Time: 26.84482765197754,Iterations: 5000,Cost: 116.0
+Lit PSO --------------------------
+Time: 181.3387188911438,Iterations: 68,Cost: 176.0
+Time: 182.3798348903656,Iterations: 68,Cost: 177.0
+Time: 181.37980318069458,Iterations: 68,Cost: 178.0
+Time: 182.77022671699524,Iterations: 65,Cost: 178.0

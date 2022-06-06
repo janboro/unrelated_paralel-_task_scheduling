@@ -17,13 +17,15 @@ def main():
         R1_dampening=0.0,
         R2_dampening=0.0,
     )
+
     pso_local_search = LocalSearch(
-        end_with_local_search=False,
-        iterations=0,
-    )
-    pso_params = PSOParams(
+        end_with_local_search=True,
         iterations=10,
-        swarm_size=5,
+    )
+
+    pso_params = PSOParams(
+        iterations=500,
+        swarm_size=25,
         random_first_solution=True,
         initialize_method="random",  # shuffle or random
         reverse_subtraction=True,

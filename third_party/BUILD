@@ -41,3 +41,8 @@ alias(
     name = "seaborn",
     actual = requirement("seaborn"),
 )
+
+alias(
+    name = "scipy",
+    actual = requirement("scipy"),
+)
