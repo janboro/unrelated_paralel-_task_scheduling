@@ -23,7 +23,7 @@ class UnrelatedParallelMachineSchedulingGenerator:
 
     def generate_release_dates(self):
         release_dates = []
-        # release_dates = [2, 5, 12, 5, 10, 6, 12, 8, 6, 2]
+        # release_dates = [2, 3, 4, 6, 7, 8, 8, 9, 10, 10, 12, 12, 12, 14, 15, 15, 15, 15, 15, 15]
 
         if not release_dates:
             # Generating random release dates

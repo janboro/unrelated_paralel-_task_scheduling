@@ -14,6 +14,9 @@ from utils.plotter import gantt_plot, plot_jobs
 
 def main():
     scheduling_problem = UnrelatedParallelMachineSchedulingGenerator()
+    print(scheduling_problem.jobs)
+    print(scheduling_problem.processing_times)
+    print()
     plot_jobs(scheduling_solution=scheduling_problem)
     # SRD -------------------------------------
     SRD = ShortestReleaseDates()
@@ -22,135 +25,113 @@ def main():
     srd_cost = get_solution_cost(scheduling_problem=scheduling_problem, vectorized_solution=srd_vector)
 
     print(f"SRD cost: {srd_cost}")
+    print(f"SRD solution: {srd_vector}")
     gantt_plot(scheduling_solution=srd_solution, title="SRD", plot_label=False)
 
     # SA -------------------------------------
-    # best_sa_params = None
-    # for i in range(10):
-    #     start_time = time.time()
-    #     simulated_annealing = SimulatedAnnealing(
-    #         temperature=1.0,
-    #         cooling_rate=cooling_rate,
-    #         max_iterations=iterations,
-    #         display_iteration=False,
-    #     )
-    #     sa_solution, sa_iterations = simulated_annealing.run(scheduling_problem=scheduling_problem)
-    #     end_time = time.time()
-    #     sa_solution.cost
-    # print()
-    # print("BEST SA PARAMS ==================================================================================")
-    # print(best_sa_params)
-    # print("=================================================================================================")
-    # print()
-    # SA_solution, _ = initialize_solution(
-    #     scheduling_problem=scheduling_problem,
-    #     grouped_vectorized_solution=get_grouped_solution(simulated_annealing_solution.position),
-    # )
-    # print(f"SA cost: {simulated_annealing_solution.cost}")
-    # gantt_plot(scheduling_solution=SA_solution, title="SA", plot_label=False)
+    best_sa_params = None
+    simulated_annealing = SimulatedAnnealing(
+        temperature=1.0,
+        cooling_rate=0.99,
+        max_iterations=5000,
+        display_iteration=False,
+    )
+    sa_solution, _ = simulated_annealing.run(scheduling_problem=scheduling_problem)
 
-    # plt.plot(simulated_annealing.best_cost_history)
-    # plt.show()
-    # plt.semilogy(simulated_annealing.best_cost_history)
-    # plt.show()
+    SA_solution, _ = initialize_solution(
+        scheduling_problem=scheduling_problem,
+        grouped_vectorized_solution=get_grouped_solution(sa_solution.position),
+    )
+    print(f"SA cost: {sa_solution.cost}")
+    print(f"SA solution: {sa_solution.position}")
+    gantt_plot(scheduling_solution=SA_solution, title="SA", plot_label=False)
+
+    plt.plot(simulated_annealing.best_cost_history, color="tab:blue")
+    plt.show()
+    plt.semilogy(simulated_annealing.best_cost_history, color="tab:blue")
+    plt.show()
 
     # PSO 1 -----------------------------
-    max_time = 90
-    PSO_best_solution = None
-    PSO_best_params = None
-    for R1_dampening in np.arange(0.0, 1.0, 0.1):
-        for R2_dampening in np.arange(0.0, 1.0, 0.1):
-            pso_probability = Probability(
-                distribution="bernoulli",  # bernoulli or randint
-                R1=0.7,
-                R2=0.8,
-                R1_dampening=R1_dampening,
-                R2_dampening=R2_dampening,
-            )
-            pso_local_search = LocalSearch(
-                end_with_local_search=False,
-                iterations=0,
-            )
-            pso_params = PSOParams(
-                iterations=300,
-                swarm_size=30,
-                random_first_solution=True,
-                initialize_method="random",
-                reverse_subtraction=True,
-                fill_velocity_randomly=True,
-                R_probability=pso_probability,
-                local_search=pso_local_search,
-            )
+    max_time = 180
+    pso_probability = Probability(
+        distribution="bernoulli",  # bernoulli or randint
+        R1=0.9,
+        R2=0.1,
+        R1_dampening=0.0,
+        R2_dampening=0.0,
+    )
+    pso_local_search = LocalSearch(
+        end_with_local_search=True,
+        iterations=10,
+    )
+    pso_params = PSOParams(
+        iterations=3000,
+        swarm_size=30,
+        random_first_solution=False,
+        initialize_method="shuffle",
+        reverse_subtraction=False,
+        fill_velocity_randomly=False,
+        R_probability=pso_probability,
+        local_search=pso_local_search,
+    )
 
-            pso = PSO(
-                scheduling_problem=scheduling_problem, pso_params=pso_params, max_time=60, display_iteration=False
-            )
-            pso_solutions, pso_iterations = pso.run()
-            pso_params.R_probability.R1_dampening = R1_dampening
-            pso_params.R_probability.R2_dampening = R2_dampening
-            if PSO_best_solution is None:
-                PSO_best_solution = pso_solutions
-            elif pso_solutions.cost < PSO_best_solution.cost:
-                PSO_best_solution = pso_solutions
-                PSO_best_params = pso_params
-            pso_params.iterations = pso_iterations
-            print(f"Params: {pso_params}, cost: {pso_solutions.cost}")
+    pso = PSO(scheduling_problem=scheduling_problem, pso_params=pso_params, max_time=max_time, display_iteration=False)
+    pso_solutions, _ = pso.run()
+
+    print(f"PSO1 cost: {pso_solutions.cost}")
+    print(f"PSO1 solution: {pso_solutions}")
     print()
-    print(f"SRD cost: {srd_cost}")
-    print("BEST PSO PARAMS ==================================================================================")
-    print(PSO_best_params)
-    print("BEST PSO SOLUTION ==================================================================================")
-    print(PSO_best_solution)
-    print("=================================================================================================")
+    PSO_solution, _ = initialize_solution(
+        scheduling_problem=scheduling_problem,
+        grouped_vectorized_solution=get_grouped_solution(pso_solutions.position),
+    )
+    gantt_plot(scheduling_solution=PSO_solution, title="PSO_LIT", plot_label=False)
+
+    plt.plot(pso.best_costs, color="tab:blue")
+    plt.show()
+    plt.semilogy(pso.best_costs, color="tab:blue")
+    plt.show()
+
+    # PSO 2 -----------------------------
+    max_time = 180
+    pso_probability = Probability(
+        distribution="bernoulli",  # bernoulli or randint
+        R1=0.7,
+        R2=0.8,
+        R1_dampening=0.1,
+        R2_dampening=0.3,
+    )
+    pso_local_search = LocalSearch(
+        end_with_local_search=True,
+        iterations=10,
+    )
+    pso_params = PSOParams(
+        iterations=3000,
+        swarm_size=30,
+        random_first_solution=False,
+        initialize_method="shuffle",
+        reverse_subtraction=True,
+        fill_velocity_randomly=True,
+        R_probability=pso_probability,
+        local_search=pso_local_search,
+    )
+
+    pso = PSO(scheduling_problem=scheduling_problem, pso_params=pso_params, max_time=max_time, display_iteration=False)
+    pso_solutions, _ = pso.run()
+
+    print(f"PSO2 cost: {pso_solutions.cost}")
+    print(f"PSO2 solution: {pso_solutions}")
     print()
-    # print()
-    # print("BEST SA PARAMS ==================================================================================")
-    # print(best_sa_params)
-    # print("=================================================================================================")
-    # print()
+    PSO_solution, _ = initialize_solution(
+        scheduling_problem=scheduling_problem,
+        grouped_vectorized_solution=get_grouped_solution(pso_solutions.position),
+    )
+    gantt_plot(scheduling_solution=PSO_solution, title="PSO_B_SRD_LS", plot_label=False)
 
-    # # PSO2 -----------------------------
-    # pso_probability2 = Probability(
-    #     distribution="randint",  # bernoulli or randint
-    #     R1=0.9,
-    #     R2=0.9,
-    #     R1_dampening=0.0,
-    #     R2_dampening=0.0,
-    # )
-    # pso_local_search2 = LocalSearch(
-    #     end_with_local_search=True,
-    #     iterations=10,
-    # )
-    # pso_params2 = PSOParams(
-    #     iterations=500,
-    #     swarm_size=30,
-    #     random_first_solution=False,
-    #     initialize_method="random",
-    #     reverse_subtraction=True,
-    #     multiplication_operator="regular",
-    #     fill_velocity_randomly=True,
-    #     R_probability=pso_probability2,
-    #     local_search=pso_local_search2,
-    # )
-    # scheduling_problem = UnrelatedParallelMachineSchedulingGenerator()
-
-    # pso2 = PSO(scheduling_problem=scheduling_problem, pso_params=pso_params2)
-    # pso_solutions2 = pso2.run()
-
-    # print(f"PSO2 cost: {pso_solutions2.cost}")
-    # gantt_plot(scheduling_solution=pso_solutions, title="PSO", plot_label=False)
-    # plt.plot(pso.best_costs)
-
-    # plt.show()
-    # plt.semilogy(pso.best_costs)
-    # plt.show()
-
-    # print()
-    # print(f"SRD cost: {srd_cost}")
-    # print(f"SA cost: {simulated_annealing_solution.cost}")
-    # print(f"PSO cost: {pso_solutions.cost}")
-    # print(f"PSO cost: {pso_solutions2.cost}")
-    # print(f"PSO2 cost: {pso_solutions2.cost}")
+    plt.plot(pso.best_costs, color="tab:blue")
+    plt.show()
+    plt.semilogy(pso.best_costs, color="tab:blue")
+    plt.show()
 
 
 if __name__ == "__main__":

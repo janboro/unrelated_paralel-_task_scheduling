@@ -2,12 +2,10 @@ machines:
   amount: 7
 
 jobs:
-  amount: 32
+  amount: 20
   release_date:
     min: 0
     max: 10
   operation_processing_time:
     min: 1
     max: 50
-
-
